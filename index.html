@@ -1,0 +1,2456 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patmo Dermocosméticos | Ciência que sua pele pode sentir</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A96E;
+    --gold-light: #E8D5B0;
+    --gold-dark: #9A7A4A;
+    --cream: #FAF7F2;
+    --cream-dark: #F2EDE4;
+    --charcoal: #2C2C2C;
+    --warm-gray: #8A8278;
+    --white: #FFFFFF;
+    --rose: #E8C5C5;
+    --rose-dark: #C49494;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    overflow-x: clip;
+  }
+
+  /* ── TICKER ── */
+  .ticker {
+    background: var(--charcoal);
+    color: var(--gold-light);
+    padding: 8px 0;
+    overflow: hidden;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .ticker-inner {
+    display: flex;
+    gap: 60px;
+    animation: ticker 28s linear infinite;
+    white-space: nowrap;
+  }
+  @keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .ticker-inner span { flex-shrink: 0; }
+  .ticker-dot { color: var(--gold); margin: 0 8px; }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--white);
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    border-bottom: 1px solid var(--gold-light);
+    overflow: visible;
+  }
+  .header-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .logo-icon {
+    width: 36px;
+    height: 36px;
+  }
+  .logo-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--charcoal);
+    letter-spacing: 1px;
+  }
+  .logo-sub {
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+    display: block;
+    margin-top: -4px;
+  }
+  nav { display: flex; gap: 36px; align-items: center; }
+  nav a {
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--charcoal);
+    transition: color 0.2s;
+    position: relative;
+  }
+  nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0;
+    width: 0; height: 1px;
+    background: var(--gold);
+    transition: width 0.3s;
+  }
+  nav a:hover { color: var(--gold-dark); }
+  nav a:hover::after { width: 100%; }
+  .nav-dropdown { position: relative; }
+  .nav-dropdown > a { cursor: pointer; }
+  .dropdown-menu {
+    position: fixed;
+    background: var(--white);
+    border: 1px solid var(--gold-light);
+    min-width: 200px;
+    padding: 16px 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+    z-index: 99999;
+  }
+  .nav-dropdown.open .dropdown-menu {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .dropdown-menu a {
+    display: block;
+    padding: 10px 24px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: var(--charcoal);
+    white-space: nowrap;
+  }
+  .dropdown-menu a:hover { background: var(--cream); color: var(--gold-dark); }
+  .dropdown-menu a::after { display: none; }
+  .header-actions { display: flex; gap: 20px; align-items: center; }
+  .header-actions a {
+    text-decoration: none;
+    color: var(--charcoal);
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .btn-quiz-header {
+    background: var(--gold);
+    color: var(--white) !important;
+    padding: 10px 22px;
+    font-size: 11px !important;
+    letter-spacing: 1.5px;
+    transition: background 0.2s !important;
+  }
+  .btn-quiz-header:hover { background: var(--gold-dark) !important; }
+  .btn-quiz-header::after { display: none !important; }
+  .cart-icon { position: relative; cursor: pointer; }
+  .cart-badge {
+    position: absolute; top: -6px; right: -8px;
+    background: var(--gold);
+    color: white;
+    font-size: 9px;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* ── HERO ── */
+  .hero-slider { position: relative; overflow: hidden; height: 620px; }
+  .slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    display: flex;
+    align-items: center;
+  }
+  .slide.active { opacity: 1; }
+  .slide-bg {
+    position: absolute; inset: 0;
+    background-size: cover;
+    background-position: center;
+  }
+  .slide-1 .slide-bg {
+    background: linear-gradient(135deg, #2C1A0E 0%, #5C3D1E 40%, #8B5E3C 100%);
+  }
+  .slide-2 .slide-bg {
+    background: linear-gradient(135deg, #1A1A2E 0%, #3D2B4E 40%, #6B4E7A 100%);
+  }
+  .slide-3 .slide-bg {
+    background: linear-gradient(135deg, #0E2A1A 0%, #1E5C3A 40%, #3C8B5E 100%);
+  }
+  /* Geometric gold overlay */
+  .slide-bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='600' height='600' viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23C9A96E' stroke-width='0.5' opacity='0.15'%3E%3Ccircle cx='300' cy='300' r='250'/%3E%3Ccircle cx='300' cy='300' r='200'/%3E%3Ccircle cx='300' cy='300' r='150'/%3E%3Cpolygon points='300,50 550,225 550,375 300,550 50,375 50,225'/%3E%3Cpolygon points='300,100 500,213 500,387 300,500 100,387 100,213'/%3E%3C/g%3E%3C/svg%3E") center/cover no-repeat;
+  }
+  .slide-overlay {
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,0.35);
+  }
+  .slide-content {
+    position: relative; z-index: 2;
+    max-width: 1280px; margin: 0 auto; padding: 0 80px;
+    color: var(--white);
+    animation: slideIn 0.8s ease forwards;
+  }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .slide-tag {
+    display: inline-block;
+    border: 1px solid var(--gold);
+    color: var(--gold-light);
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    margin-bottom: 24px;
+  }
+  .slide-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 72px;
+    font-weight: 300;
+    line-height: 1.05;
+    margin-bottom: 20px;
+  }
+  .slide-title em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+  .slide-sub {
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    opacity: 0.85;
+    margin-bottom: 40px;
+    max-width: 460px;
+    line-height: 1.7;
+  }
+  .slide-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--white);
+    padding: 14px 36px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: none; cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover { background: var(--gold-dark); transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    padding: 14px 36px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: 1px solid rgba(255,255,255,0.5);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--gold); background: rgba(201,169,110,0.15); }
+  .slide-indicators {
+    position: absolute; bottom: 30px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; gap: 10px; z-index: 10;
+  }
+  .indicator {
+    width: 30px; height: 2px;
+    background: rgba(255,255,255,0.3);
+    cursor: pointer; transition: background 0.3s, width 0.3s;
+  }
+  .indicator.active { background: var(--gold); width: 50px; }
+
+  /* ── TRUST BADGES ── */
+  .trust-strip {
+    background: var(--cream-dark);
+    padding: 14px 0;
+    border-top: 1px solid var(--gold-light);
+    border-bottom: 1px solid var(--gold-light);
+    overflow: hidden;
+  }
+  .trust-inner {
+    display: flex; gap: 60px;
+    animation: ticker 20s linear infinite;
+    white-space: nowrap;
+  }
+  .trust-item {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 10px; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--warm-gray);
+    flex-shrink: 0;
+  }
+  .trust-item svg { color: var(--gold); }
+
+  /* ── SECTION COMMON ── */
+  section { padding: 80px 40px; max-width: 1280px; margin: 0 auto; }
+  .section-header {
+    text-align: center; margin-bottom: 60px;
+  }
+  .section-eyebrow {
+    font-size: 10px; letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+    display: block;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px; font-weight: 400;
+    line-height: 1.1;
+    color: var(--charcoal);
+    margin-bottom: 16px;
+  }
+  .section-title em { font-style: italic; color: var(--gold-dark); }
+  .section-desc {
+    font-size: 14px; font-weight: 300;
+    color: var(--warm-gray);
+    max-width: 500px; margin: 0 auto;
+    line-height: 1.8;
+  }
+
+  /* ── QUIZ BANNER ── */
+  .quiz-banner-wrap {
+    background: var(--charcoal);
+    padding: 0;
+    max-width: 100%;
+  }
+  .quiz-banner {
+    max-width: 1280px; margin: 0 auto;
+    padding: 70px 80px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: center;
+  }
+  .quiz-text { color: var(--white); }
+  .quiz-text .section-eyebrow { color: var(--gold); }
+  .quiz-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px; font-weight: 300;
+    line-height: 1.1; margin-bottom: 20px;
+    color: var(--white);
+  }
+  .quiz-title em { font-style: italic; color: var(--gold-light); }
+  .quiz-desc {
+    font-size: 14px; font-weight: 300;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.8; margin-bottom: 36px;
+  }
+  .quiz-steps {
+    display: flex; flex-direction: column;
+    gap: 16px; margin-bottom: 40px;
+  }
+  .quiz-step {
+    display: flex; align-items: center; gap: 16px;
+    color: rgba(255,255,255,0.8); font-size: 13px;
+  }
+  .step-num {
+    width: 32px; height: 32px;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 500;
+    flex-shrink: 0;
+  }
+  .quiz-visual {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .quiz-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(201,169,110,0.2);
+    padding: 24px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .quiz-card:hover {
+    background: rgba(201,169,110,0.1);
+    border-color: var(--gold);
+  }
+  .quiz-card-icon { font-size: 28px; margin-bottom: 10px; }
+  .quiz-card-label {
+    font-size: 11px; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--gold-light);
+  }
+
+  /* ── PRODUCTS GRID ── */
+  .products-section { max-width: 100%; background: var(--white); }
+  .products-inner { max-width: 1280px; margin: 0 auto; padding: 80px 40px; }
+  .products-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .product-card {
+    background: var(--cream);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s;
+    group: true;
+  }
+  .product-card:hover { transform: translateY(-6px); }
+  .product-img {
+    width: 100%; aspect-ratio: 1;
+    object-fit: cover;
+    display: block;
+    background: var(--cream-dark);
+    transition: transform 0.4s;
+  }
+  .product-card:hover .product-img { transform: scale(1.04); }
+  .product-img-placeholder {
+    width: 100%; aspect-ratio: 1;
+    background: linear-gradient(135deg, var(--cream-dark) 0%, var(--gold-light) 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px; letter-spacing: 2px;
+    color: var(--gold-dark); text-transform: uppercase;
+    flex-direction: column; gap: 8px;
+    transition: transform 0.4s;
+  }
+  .product-card:hover .product-img-placeholder { transform: scale(1.04); }
+  .product-badge {
+    position: absolute; top: 16px; left: 16px;
+    background: var(--gold); color: var(--white);
+    font-size: 9px; letter-spacing: 1.5px;
+    text-transform: uppercase; padding: 4px 10px;
+  }
+  .product-badge.novo { background: var(--charcoal); }
+  .product-info { padding: 20px; }
+  .product-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px; font-weight: 400;
+    margin-bottom: 6px; line-height: 1.3;
+  }
+  .product-desc {
+    font-size: 11px; color: var(--warm-gray);
+    letter-spacing: 0.5px; margin-bottom: 14px;
+    line-height: 1.6;
+  }
+  .product-price-row {
+    display: flex; align-items: center;
+    justify-content: space-between;
+  }
+  .product-price {
+    font-size: 16px; font-weight: 500;
+    color: var(--charcoal);
+  }
+  .product-price-old {
+    font-size: 11px; color: var(--warm-gray);
+    text-decoration: line-through; margin-right: 6px;
+  }
+  .btn-add {
+    background: var(--charcoal); color: var(--white);
+    border: none; padding: 8px 16px;
+    font-size: 10px; letter-spacing: 1.5px;
+    text-transform: uppercase; cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-add:hover { background: var(--gold); }
+
+  /* ── CATEGORIES BY CONCERN ── */
+  .concerns-section { max-width: 100%; background: var(--cream); }
+  .concerns-inner { max-width: 1280px; margin: 0 auto; padding: 80px 40px; }
+  .concerns-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+  }
+  .concern-card {
+    background: var(--white);
+    padding: 40px 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.2s;
+    border: 1px solid transparent;
+    position: relative; overflow: hidden;
+  }
+  .concern-card::before {
+    content: '';
+    position: absolute; bottom: 0; left: 0;
+    width: 0; height: 2px;
+    background: var(--gold);
+    transition: width 0.3s;
+  }
+  .concern-card:hover { background: var(--cream); border-color: var(--gold-light); }
+  .concern-card:hover::before { width: 100%; }
+  .concern-icon { font-size: 36px; margin-bottom: 16px; }
+  .concern-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 400;
+    margin-bottom: 8px;
+  }
+  .concern-desc {
+    font-size: 11px; color: var(--warm-gray);
+    letter-spacing: 0.5px; line-height: 1.6;
+  }
+
+  /* ── KITS / ROUTINES ── */
+  .kits-section { max-width: 100%; background: var(--charcoal); }
+  .kits-inner { max-width: 1280px; margin: 0 auto; padding: 80px 40px; }
+  .kits-inner .section-title { color: var(--white); }
+  .kits-inner .section-desc { color: rgba(255,255,255,0.6); }
+  .kits-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .kit-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(201,169,110,0.2);
+    overflow: hidden; cursor: pointer;
+    transition: border-color 0.2s, transform 0.3s;
+  }
+  .kit-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+  .kit-img {
+    width: 100%; aspect-ratio: 4/3;
+    background: linear-gradient(135deg, var(--cream-dark) 0%, var(--gold-light) 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px; letter-spacing: 2px; color: var(--gold-dark);
+    text-transform: uppercase;
+  }
+  .kit-info { padding: 24px; }
+  .kit-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; color: var(--white);
+    margin-bottom: 8px;
+  }
+  .kit-items {
+    font-size: 11px; color: rgba(255,255,255,0.5);
+    letter-spacing: 0.5px; margin-bottom: 16px;
+    line-height: 1.6;
+  }
+  .kit-price-row {
+    display: flex; align-items: center;
+    justify-content: space-between;
+  }
+  .kit-price { color: var(--gold-light); font-size: 18px; font-weight: 300; }
+  .kit-price-old { color: rgba(255,255,255,0.3); text-decoration: line-through; font-size: 12px; margin-right: 8px; }
+  .kit-savings {
+    background: var(--gold); color: var(--white);
+    font-size: 9px; letter-spacing: 1px;
+    padding: 3px 8px; text-transform: uppercase;
+  }
+
+  /* ── BRAND STORY ── */
+  .story-section { max-width: 100%; background: var(--white); }
+  .story-inner {
+    max-width: 1280px; margin: 0 auto; padding: 80px 40px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+  }
+  .story-visual {
+    position: relative;
+  }
+  .story-img-main {
+    width: 100%; aspect-ratio: 3/4;
+    background: linear-gradient(160deg, var(--cream-dark) 0%, var(--gold-light) 50%, #C9A96E44 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px; letter-spacing: 2px; color: var(--gold-dark);
+  }
+  .story-accent {
+    position: absolute; bottom: -20px; right: -20px;
+    width: 160px; height: 160px;
+    background: var(--charcoal);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    color: var(--white);
+  }
+  .story-accent-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px; font-weight: 300; color: var(--gold);
+    line-height: 1;
+  }
+  .story-accent-text { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.7; text-align: center; }
+  .story-text { }
+  .story-text .section-title { text-align: left; }
+  .story-text .section-desc { text-align: left; max-width: 100%; margin: 0; margin-bottom: 24px; }
+  .story-quote {
+    border-left: 2px solid var(--gold);
+    padding: 20px 24px;
+    background: var(--cream);
+    margin: 32px 0;
+  }
+  .story-quote-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-style: italic;
+    font-weight: 300; line-height: 1.5;
+    color: var(--charcoal); margin-bottom: 8px;
+  }
+  .story-quote-author {
+    font-size: 10px; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--warm-gray);
+  }
+  .stats-row { display: flex; gap: 40px; margin-top: 36px; }
+  .stat { }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px; font-weight: 300; color: var(--gold);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 10px; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--warm-gray);
+  }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials-section { max-width: 100%; background: var(--cream); }
+  .testimonials-inner { max-width: 1280px; margin: 0 auto; padding: 80px 40px; }
+  .testimonials-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .testimonial-card {
+    background: var(--white);
+    padding: 36px 28px;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+  }
+  .testimonial-card:hover { border-color: var(--gold); }
+  .stars { color: var(--gold); font-size: 13px; margin-bottom: 16px; letter-spacing: 2px; }
+  .testimonial-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px; font-weight: 300;
+    font-style: italic; line-height: 1.7;
+    color: var(--charcoal); margin-bottom: 24px;
+  }
+  .testimonial-author {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .author-avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: var(--gold-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; color: var(--gold-dark); font-weight: 500;
+  }
+  .author-name { font-size: 13px; font-weight: 500; margin-bottom: 2px; }
+  .author-product { font-size: 10px; color: var(--warm-gray); letter-spacing: 1px; }
+
+  /* ── BLOG ── */
+  .blog-section { max-width: 100%; background: var(--white); }
+  .blog-inner { max-width: 1280px; margin: 0 auto; padding: 80px 40px; }
+  .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .blog-card { cursor: pointer; }
+  .blog-img {
+    width: 100%; aspect-ratio: 16/9;
+    background: linear-gradient(135deg, var(--cream-dark), var(--gold-light));
+    margin-bottom: 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12px; letter-spacing: 2px; color: var(--gold-dark);
+    overflow: hidden; position: relative;
+    transition: transform 0.3s;
+  }
+  .blog-card:hover .blog-img { transform: scale(1.02); }
+  .blog-cat {
+    font-size: 9px; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .blog-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 400;
+    line-height: 1.3; margin-bottom: 10px;
+    color: var(--charcoal);
+  }
+  .blog-excerpt {
+    font-size: 12px; color: var(--warm-gray);
+    line-height: 1.7; margin-bottom: 16px;
+  }
+  .blog-read {
+    font-size: 10px; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--gold-dark);
+    text-decoration: none;
+    border-bottom: 1px solid var(--gold-light);
+    padding-bottom: 2px;
+    transition: border-color 0.2s;
+  }
+  .blog-read:hover { border-color: var(--gold); }
+
+  /* ── NEWSLETTER ── */
+  .newsletter-wrap { background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 100%); }
+  .newsletter {
+    max-width: 1280px; margin: 0 auto; padding: 70px 80px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: center;
+  }
+  .newsletter-text h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px; font-weight: 300;
+    color: var(--white); line-height: 1.1; margin-bottom: 12px;
+  }
+  .newsletter-text p {
+    font-size: 13px; color: rgba(255,255,255,0.8);
+    line-height: 1.7;
+  }
+  .newsletter-form { display: flex; gap: 0; }
+  .newsletter-input {
+    flex: 1;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-right: none;
+    padding: 16px 20px;
+    font-size: 13px;
+    color: var(--white);
+    outline: none;
+    font-family: 'Jost', sans-serif;
+  }
+  .newsletter-input::placeholder { color: rgba(255,255,255,0.6); }
+  .newsletter-btn {
+    background: var(--charcoal); color: var(--white);
+    border: none; padding: 16px 28px;
+    font-size: 11px; letter-spacing: 2px;
+    text-transform: uppercase; cursor: pointer;
+    font-family: 'Jost', sans-serif;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .newsletter-btn:hover { background: #111; }
+
+  /* ── FOOTER ── */
+  footer { background: #1A1A1A; color: rgba(255,255,255,0.7); }
+  .footer-main {
+    max-width: 1280px; margin: 0 auto; padding: 60px 40px;
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px;
+  }
+  .footer-brand .logo-text { color: var(--white); }
+  .footer-brand p {
+    font-size: 12px; line-height: 1.8; margin-top: 16px;
+    color: rgba(255,255,255,0.5); max-width: 260px;
+  }
+  .footer-social { display: flex; gap: 12px; margin-top: 24px; }
+  .social-btn {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(255,255,255,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; cursor: pointer; color: rgba(255,255,255,0.6);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .social-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .footer-col h4 {
+    font-size: 10px; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .footer-col a {
+    display: block; text-decoration: none;
+    font-size: 12px; color: rgba(255,255,255,0.5);
+    margin-bottom: 10px; transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--gold-light); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 24px 40px;
+    max-width: 1280px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 11px; color: rgba(255,255,255,0.3);
+  }
+  .footer-seals { display: flex; gap: 16px; align-items: center; }
+  .seal {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 4px 12px; font-size: 9px; letter-spacing: 1px;
+    text-transform: uppercase; color: rgba(255,255,255,0.4);
+  }
+
+  /* ── FLOATING WHATSAPP ── */
+  .whatsapp-float {
+    position: fixed; bottom: 30px; right: 30px; z-index: 999;
+    background: #25D366; color: white;
+    width: 56px; height: 56px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+    font-size: 24px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+  }
+  .whatsapp-float:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 28px rgba(37,211,102,0.5);
+  }
+
+  /* ── MOBILE NAV ── */
+  .menu-toggle {
+    display: none;
+    background: none; border: none;
+    cursor: pointer; padding: 4px;
+    flex-direction: column; gap: 5px;
+  }
+  .menu-toggle span {
+    display: block; width: 24px; height: 1.5px;
+    background: var(--charcoal); transition: 0.3s;
+  }
+
+  @media (max-width: 900px) {
+    .menu-toggle { display: flex; }
+    nav { display: none; }
+    .products-grid { grid-template-columns: repeat(2, 1fr); }
+    .concerns-grid { grid-template-columns: repeat(2, 1fr); }
+    .kits-grid { grid-template-columns: 1fr; }
+    .quiz-banner { grid-template-columns: 1fr; padding: 50px 30px; }
+    .story-inner { grid-template-columns: 1fr; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .blog-grid { grid-template-columns: 1fr; }
+    .newsletter { grid-template-columns: 1fr; padding: 50px 30px; }
+    .footer-main { grid-template-columns: 1fr 1fr; }
+    .slide-title { font-size: 44px; }
+    .slide-content { padding: 0 30px; }
+    .hero-slider { height: 500px; }
+  }
+
+
+  /* ── CATALOG FILTERS ── */
+  .catalog-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 40px;
+    justify-content: center;
+  }
+  .filter-btn {
+    background: var(--white);
+    border: 1px solid var(--gold-light);
+    color: var(--charcoal);
+    padding: 8px 18px;
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 0;
+    transition: all 0.2s;
+  }
+  .filter-btn:hover { background: var(--gold-light); border-color: var(--gold); }
+  .filter-btn.active { background: var(--charcoal); color: var(--white); border-color: var(--charcoal); }
+  .catalog-count {
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+    margin-top: 32px;
+  }
+  .product-card.hidden { display: none; }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner" id="tickerInner">
+    <span>Cruelty Free <span class="ticker-dot">✦</span></span>
+    <span>Testado Dermatologicamente <span class="ticker-dot">✦</span></span>
+    <span>Formulado por Especialista <span class="ticker-dot">✦</span></span>
+    <span>Ativos de Última Geração <span class="ticker-dot">✦</span></span>
+    <span>20 Anos de Experiência <span class="ticker-dot">✦</span></span>
+    <span>Dermocosméticos Premium <span class="ticker-dot">✦</span></span>
+    <span>Cruelty Free <span class="ticker-dot">✦</span></span>
+    <span>Testado Dermatologicamente <span class="ticker-dot">✦</span></span>
+    <span>Formulado por Especialista <span class="ticker-dot">✦</span></span>
+    <span>Ativos de Última Geração <span class="ticker-dot">✦</span></span>
+    <span>20 Anos de Experiência <span class="ticker-dot">✦</span></span>
+    <span>Dermocosméticos Premium <span class="ticker-dot">✦</span></span>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <img src="data:image/png;base64,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" alt="Patmo Dermocosméticos" style="height:56px;width:auto;display:block;">
+    </a>
+
+    <nav>
+      <a href="#nossa-historia">Nossa História</a>
+      <div class="nav-dropdown" data-dropdown="0">
+        <a href="#" class="nav-dropdown-trigger">Produtos ▾</a>
+        <div class="dropdown-menu" id="dropdown-0">
+          <a href="#produtos" onclick="filterCatalog('all')">Todos os Produtos</a>
+          <a href="#produtos" onclick="filterCatalog('seruns')">Séruns</a>
+          <a href="#produtos" onclick="filterCatalog('labios')">Stick Labial & Gloss</a>
+          <a href="#produtos" onclick="filterCatalog('labial')">Tratamento Labial</a>
+          <a href="#produtos" onclick="filterCatalog('cremes')">Cremes Faciais</a>
+          <a href="#kits" onclick="filterCatalog('kits')">Kits & Rotinas</a>
+          <a href="#produtos" onclick="filterCatalog('especiais')">Cuidados Especiais</a>
+        </div>
+      </div>
+      <div class="nav-dropdown" data-dropdown="1">
+        <a href="#" class="nav-dropdown-trigger">Minha Pele ▾</a>
+        <div class="dropdown-menu" id="dropdown-1">
+          <a href="#produtos" onclick="filterByConcern('acne')">Acne &amp; Poros</a>
+          <a href="#produtos" onclick="filterByConcern('manchas')">Manchas</a>
+          <a href="#produtos" onclick="filterByConcern('linhas')">Linhas Finas</a>
+          <a href="#produtos" onclick="filterByConcern('oleosidade')">Oleosidade</a>
+          <a href="#produtos" onclick="filterByConcern('ressecamento')">Ressecamento</a>
+          <a href="#produtos" onclick="filterByConcern('sinais')">Sinais de Idade</a>
+        </div>
+      </div>
+      <a href="#nossa-historia">Tecnologia</a>
+      <a href="#blog">Blog</a>
+    </nav>
+
+    <div class="header-actions">
+      <a href="#" onclick="openQuizPanel();return false;" class="btn-quiz-header">Faça o Quiz</a>
+      <div class="cart-icon">
+        🛍
+        <span class="cart-badge">0</span>
+      </div>
+    </div>
+
+    <button class="menu-toggle">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- HERO SLIDER -->
+<div class="hero-slider">
+  <!-- Slide 1 -->
+  <div class="slide slide-1 active">
+    <div class="slide-bg"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-content">
+      <span class="slide-tag">20 anos de experiência em dermatofuncional</span>
+      <h1 class="slide-title">Ciência que<br>sua pele pode <em>sentir</em></h1>
+      <p class="slide-sub">Dermocosméticos premium com ativos tecnológicos de última geração. Formulados pela Dra. Patrícia Moura.</p>
+      <div class="slide-btns">
+        <a href="#" class="btn-primary">Conhecer a Linha</a>
+        <a href="#" onclick="openQuizPanel();return false;" class="btn-outline">Faça sua Pré-Avaliação</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 2 -->
+  <div class="slide slide-2">
+    <div class="slide-bg"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-content">
+      <span class="slide-tag">Novidade · Lançamento 2025</span>
+      <h1 class="slide-title">Banco de<br>Colágeno <em>Ativado</em></h1>
+      <p class="slide-sub">Fatores de crescimento, Matrixyl e Vitamina C em uma única fórmula. Firmeza e elasticidade que você vê.</p>
+      <div class="slide-btns">
+        <a href="#" class="btn-primary">Ver Produto</a>
+        <a href="#" class="btn-outline">Comparar Soluções</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 3 -->
+  <div class="slide slide-3">
+    <div class="slide-bg"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-content">
+      <span class="slide-tag">Oferta Especial · Kit Completo</span>
+      <h1 class="slide-title">Sua rotina<br>completa em <em>um kit</em></h1>
+      <p class="slide-sub">Combine os melhores ativos da Patmo para uma pele transformada em 30 dias. Kit Antienvelhecimento com 35% off.</p>
+      <div class="slide-btns">
+        <a href="#" class="btn-primary">Aproveitar Oferta</a>
+        <a href="#" onclick="openQuizPanel();return false;" class="btn-outline">Descobrir Meu Kit</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Indicators -->
+  <div class="slide-indicators">
+    <div class="indicator active" onclick="goToSlide(0)"></div>
+    <div class="indicator" onclick="goToSlide(1)"></div>
+    <div class="indicator" onclick="goToSlide(2)"></div>
+  </div>
+</div>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <div class="trust-inner">
+    <div class="trust-item">✦ Cruelty Free</div>
+    <div class="trust-item">✦ Testado Dermatologicamente</div>
+    <div class="trust-item">✦ Formulado por Fisioterapeuta Dermatofuncional</div>
+    <div class="trust-item">✦ Ativos Tecnológicos Certificados</div>
+    <div class="trust-item">✦ Frete Grátis Acima de R$150</div>
+    <div class="trust-item">✦ Parcelamento em 6x Sem Juros</div>
+    <div class="trust-item">✦ Cruelty Free</div>
+    <div class="trust-item">✦ Testado Dermatologicamente</div>
+    <div class="trust-item">✦ Formulado por Fisioterapeuta Dermatofuncional</div>
+    <div class="trust-item">✦ Ativos Tecnológicos Certificados</div>
+    <div class="trust-item">✦ Frete Grátis Acima de R$150</div>
+    <div class="trust-item">✦ Parcelamento em 6x Sem Juros</div>
+  </div>
+</div>
+
+<!-- QUIZ SECTION -->
+<div class="quiz-banner-wrap" id="quiz">
+  <div class="quiz-banner">
+    <div class="quiz-text reveal">
+      <span class="section-eyebrow">Pré-Avaliação Personalizada</span>
+      <h2 class="quiz-title">Qual é a<br>rotina <em>ideal</em><br>para você?</h2>
+      <p class="quiz-desc">Cada pele é única. Nossa pré-avaliação gratuita identifica suas necessidades reais e monta uma rotina personalizada com os ativos certos para o seu tipo de pele.</p>
+      <div class="quiz-steps">
+        <div class="quiz-step">
+          <div class="step-num">01</div>
+          <span>Responda 5 perguntas sobre sua pele</span>
+        </div>
+        <div class="quiz-step">
+          <div class="step-num">02</div>
+          <span>Nossa especialista analisa seu perfil</span>
+        </div>
+        <div class="quiz-step">
+          <div class="step-num">03</div>
+          <span>Receba sua rotina personalizada via WhatsApp</span>
+        </div>
+      </div>
+      <a href="#" onclick="openQuizPanel();return false;" class="btn-primary">Fazer Pré-Avaliação Grátis →</a>
+    </div>
+    <div class="quiz-visual reveal">
+      <div class="quiz-card">
+        <div class="quiz-card-icon">💧</div>
+        <div class="quiz-card-label">Oleosa</div>
+      </div>
+      <div class="quiz-card">
+        <div class="quiz-card-icon">🌸</div>
+        <div class="quiz-card-label">Sensível</div>
+      </div>
+      <div class="quiz-card">
+        <div class="quiz-card-icon">✨</div>
+        <div class="quiz-card-label">Mista</div>
+      </div>
+      <div class="quiz-card">
+        <div class="quiz-card-icon">🌿</div>
+        <div class="quiz-card-label">Ressecada</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCTS — CATÁLOGO COMPLETO -->
+<span id="produtos"></span>
+<div class="products-section">
+  <div class="products-inner">
+    <div class="section-header reveal">
+      <span class="section-eyebrow">Catálogo Completo</span>
+      <h2 class="section-title">Todos os <em>Produtos</em></h2>
+      <p class="section-desc">Linha completa de dermocosméticos formulados pela Dra. Patrícia Moura.</p>
+    </div>
+
+    <!-- FILTROS -->
+    <div class="catalog-filters reveal">
+      <button class="filter-btn active" data-filter="all">Todos</button>
+      <button class="filter-btn" data-filter="labios">Lábios</button>
+      <button class="filter-btn" data-filter="limpeza">Limpeza Facial</button>
+      <button class="filter-btn" data-filter="tonicos">Tônicos & Águas</button>
+      <button class="filter-btn" data-filter="protecao">Proteção</button>
+      <button class="filter-btn" data-filter="seruns">Séruns</button>
+      <button class="filter-btn" data-filter="olhos">Área dos Olhos</button>
+      <button class="filter-btn" data-filter="cremes">Cremes Faciais</button>
+      <button class="filter-btn" data-filter="especiais">Cuidados Especiais</button>
+      <button class="filter-btn" data-filter="labial">Tratamento Labial</button>
+      <button class="filter-btn" data-filter="capilar">Capilar</button>
+      <button class="filter-btn" data-filter="kits">Kits</button>
+    </div>
+
+    <div class="products-grid" id="catalogGrid">
+
+      <!-- MAQUIAGEM / LÁBIOS -->
+      <div class="product-card reveal" data-cat="labios"><div class="product-img-placeholder"><span>💄</span><span>Gloss Labial</span></div><div class="product-info"><div class="product-name">Gloss Labial Hyaluronic</div><div class="product-desc">Tampa Prata · 8ml</div><div class="product-price-row"><span class="product-price">R$ 89,47</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-cat="labios"><div class="product-img-placeholder"><span>💄</span><span>Gloss LED</span></div><div class="product-info"><div class="product-name">Gloss Labial Hyaluronic</div><div class="product-desc">Tampa Dourada + LED/Espelho · 6,5ml</div><div class="product-price-row"><span class="product-price">R$ 104,95</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-cat="labios"><div class="product-img-placeholder"><span>🔑</span><span>Gloss Chaveiro</span></div><div class="product-info"><div class="product-name">Gloss Chaveiro</div><div class="product-desc">6ml</div><div class="product-price-row"><span class="product-price">R$ 67,80</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-cat="labios"><div class="product-img-placeholder"><span>✨</span><span>Mini Gloss</span></div><div class="product-info"><div class="product-name">Mini Gloss Dior</div><div class="product-desc">Prata ou Rose · 3ml</div><div class="product-price-row"><span class="product-price">R$ 46,13</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-cat="labios"><div class="product-img-placeholder"><span>💋</span><span>Gloss Moma</span></div><div class="product-info"><div class="product-name">Gloss Moma</div><div class="product-desc">5ml</div><div class="product-price-row"><span class="product-price">R$ 92,85</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-cat="labios"><div class="product-img-placeholder"><span>🌿</span><span>Lip Oil</span></div><div class="product-info"><div class="product-name">Lip Oil Repair</div><div class="product-desc">Peptídeos e Óleo de Framboesa</div><div class="product-price-row"><span class="product-price">R$ 61,61</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-cat="labios"><span class="product-badge">3 em 1</span><div class="product-img-placeholder"><span>🌸</span><span>Bastão Blush</span></div><div class="product-info"><div class="product-name">Bastão Blush 3 in 1</div><div class="product-desc">Blush, Batom e Sombra FPS 38</div><div class="product-price-row"><span class="product-price">R$ 92,57</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-cat="labios"><div class="product-img-placeholder"><span>🛡️</span><span>Stick FPS 75</span></div><div class="product-info"><div class="product-name">Stick Labial FPS 75</div><div class="product-desc">3g</div><div class="product-price-row"><span class="product-price">R$ 58,51</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <!-- LIMPEZA FACIAL -->
+      <div class="product-card reveal" data-concern="ressecamento" data-cat="limpeza"><div class="product-img-placeholder"><span>💧</span><span>Água Micelar</span></div><div class="product-info"><div class="product-name">Cleansing Water</div><div class="product-desc">Água Micelar · 100ml</div><div class="product-price-row"><span class="product-price">R$ 80,19</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="ressecamento" data-cat="limpeza"><div class="product-img-placeholder"><span>💧</span><span>Água Micelar Mini</span></div><div class="product-info"><div class="product-name">Cleansing Water</div><div class="product-desc">Água Micelar · 30ml</div><div class="product-price-row"><span class="product-price">R$ 43,03</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="acne oleosidade" data-cat="limpeza"><div class="product-img-placeholder"><span>🫧</span><span>Mousse Antioleosidade</span></div><div class="product-info"><div class="product-name">Mousse de Limpeza Facial</div><div class="product-desc">Complexo Antioleosidade · 100ml</div><div class="product-price-row"><span class="product-price">R$ 101,86</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="acne oleosidade" data-cat="limpeza"><div class="product-img-placeholder"><span>🫧</span><span>Mini Mousse</span></div><div class="product-info"><div class="product-name">Mini Mousse de Limpeza Facial</div><div class="product-desc">50ml</div><div class="product-price-row"><span class="product-price">R$ 61,61</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-cat="limpeza"><div class="product-img-placeholder"><span>🫧</span><span>Refil Mousse</span></div><div class="product-info"><div class="product-name">Refil Mousse de Limpeza</div><div class="product-desc">200ml</div><div class="product-price-row"><span class="product-price">R$ 77,09</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="manchas" data-cat="limpeza"><span class="product-badge novo">Novo</span><div class="product-img-placeholder"><span>🍊</span><span>Mousse Micellar C</span></div><div class="product-info"><div class="product-name">Mousse Micellar C</div><div class="product-desc">Vitamina C + Centella · 100ml</div><div class="product-price-row"><span class="product-price">R$ 111,15</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="manchas" data-cat="limpeza"><div class="product-img-placeholder"><span>🍊</span><span>Mini Micellar C</span></div><div class="product-info"><div class="product-name">Mini Mousse Micellar C</div><div class="product-desc">50ml</div><div class="product-price-row"><span class="product-price">R$ 61,61</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="manchas" data-cat="limpeza"><div class="product-img-placeholder"><span>🍊</span><span>Refil Micellar C</span></div><div class="product-info"><div class="product-name">Refil Mousse Micellar C</div><div class="product-desc">200ml</div><div class="product-price-row"><span class="product-price">R$ 83,28</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="ressecamento" data-cat="limpeza"><div class="product-img-placeholder"><span>🌿</span><span>Sabonete</span></div><div class="product-info"><div class="product-name">Sabonete Facial Hidratante</div><div class="product-desc">100ml</div><div class="product-price-row"><span class="product-price">R$ 101,86</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="ressecamento" data-cat="limpeza"><div class="product-img-placeholder"><span>🌿</span><span>Mini Sabonete</span></div><div class="product-info"><div class="product-name">Mini Sabonete Facial Hidratante</div><div class="product-desc">15ml</div><div class="product-price-row"><span class="product-price">R$ 33,75</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <!-- TÔNICOS E ÁGUAS -->
+      <div class="product-card reveal" data-cat="tonicos"><span class="product-badge novo">Novo</span><div class="product-img-placeholder"><span>🧬</span><span>Essence Toner</span></div><div class="product-info"><div class="product-name">Essence Toner</div><div class="product-desc">Lactobacillus + Exossomos · 100ml</div><div class="product-price-row"><span class="product-price">R$ 86,38</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-cat="tonicos"><div class="product-img-placeholder"><span>🧬</span><span>Essence Toner Mini</span></div><div class="product-info"><div class="product-name">Essence Toner</div><div class="product-desc">Lactobacillus + Exossomos · 30ml</div><div class="product-price-row"><span class="product-price">R$ 46,13</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="ressecamento" data-cat="tonicos"><div class="product-img-placeholder"><span>💦</span><span>Água Termal</span></div><div class="product-info"><div class="product-name">Água Termal Hidratante</div><div class="product-desc">100ml</div><div class="product-price-row"><span class="product-price">R$ 80,19</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="ressecamento" data-cat="tonicos"><div class="product-img-placeholder"><span>💦</span><span>Água Termal 30ml</span></div><div class="product-info"><div class="product-name">Água Termal Hidratante</div><div class="product-desc">30ml</div><div class="product-price-row"><span class="product-price">R$ 49,23</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="ressecamento" data-cat="tonicos"><div class="product-img-placeholder"><span>💦</span><span>Água Termal Mini</span></div><div class="product-info"><div class="product-name">Água Termal Hidratante</div><div class="product-desc">15ml</div><div class="product-price-row"><span class="product-price">R$ 33,75</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <!-- PROTEÇÃO / PREPARAÇÃO -->
+      <div class="product-card reveal" data-cat="protecao"><span class="product-badge">Premium</span><div class="product-img-placeholder"><span>✨</span><span>K-Primmer</span></div><div class="product-info"><div class="product-name">K-Primmer Apple Glow</div><div class="product-desc">The Real-Life Filter · 10g</div><div class="product-price-row"><span class="product-price">R$ 247,37</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="acne" data-cat="protecao"><div class="product-img-placeholder"><span>🛡️</span><span>Bastão FPS 75</span></div><div class="product-info"><div class="product-name">Bastão FPS 75 | UVA 25</div><div class="product-desc">Com ou sem cor · 14g</div><div class="product-price-row"><span class="product-price">R$ 126,63</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-cat="protecao"><div class="product-img-placeholder"><span>🛡️</span><span>Miniatura FPS 75</span></div><div class="product-info"><div class="product-name">Miniatura Stick FPS 75</div><div class="product-desc">2g</div><div class="product-price-row"><span class="product-price">R$ 36,84</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="manchas" data-cat="protecao"><div class="product-img-placeholder"><span>🌈</span><span>Camaleão Cream</span></div><div class="product-info"><div class="product-name">Camaleão Cream FPS 60</div><div class="product-desc">Com cor · 30g</div><div class="product-price-row"><span class="product-price">R$ 185,45</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="manchas" data-cat="protecao"><div class="product-img-placeholder"><span>🌈</span><span>Camaleão Cream Mini</span></div><div class="product-info"><div class="product-name">Camaleão Cream FPS 60</div><div class="product-desc">Com cor · 15g</div><div class="product-price-row"><span class="product-price">R$ 108,05</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="ressecamento" data-cat="protecao"><div class="product-img-placeholder"><span>☀️</span><span>Hidratante FPS 60</span></div><div class="product-info"><div class="product-name">Hidratante Facial FPS 60</div><div class="product-desc">Sem cor · 30g</div><div class="product-price-row"><span class="product-price">R$ 169,97</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="ressecamento" data-cat="protecao"><div class="product-img-placeholder"><span>☀️</span><span>Hidratante FPS 60 Mini</span></div><div class="product-info"><div class="product-name">Hidratante Facial FPS 60</div><div class="product-desc">Sem cor · 15g</div><div class="product-price-row"><span class="product-price">R$ 104,95</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <!-- SÉRUNS FACIAIS -->
+      <div class="product-card reveal" data-cat="seruns"><div class="product-img-placeholder"><span>⚡</span><span>Antioxidante</span></div><div class="product-info"><div class="product-name">Sérum Antioxidante</div><div class="product-desc">30ml</div><div class="product-price-row"><span class="product-price">R$ 126,63</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="acne oleosidade" data-cat="seruns"><div class="product-img-placeholder"><span>🔬</span><span>Ác. Salicílico 2%</span></div><div class="product-info"><div class="product-name">Sérum Ácido Salicílico 2%</div><div class="product-desc">30ml</div><div class="product-price-row"><span class="product-price">R$ 123,53</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="manchas" data-cat="seruns"><div class="product-img-placeholder"><span>🔬</span><span>Ác. Glicólico 10%</span></div><div class="product-info"><div class="product-name">Sérum Ácido Glicólico 10%</div><div class="product-desc">30ml</div><div class="product-price-row"><span class="product-price">R$ 123,53</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="sinais linhas" data-cat="seruns"><div class="product-img-placeholder"><span>🌷</span><span>Banco Colágeno</span></div><div class="product-info"><div class="product-name">Sérum Banco de Colágeno</div><div class="product-desc">Vidro Dior · 30ml</div><div class="product-price-row"><span class="product-price">R$ 126,63</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="sinais linhas" data-cat="seruns"><span class="product-badge">Premium</span><div class="product-img-placeholder"><span>🌷</span><span>Banco Colágeno Pump</span></div><div class="product-info"><div class="product-name">Sérum Banco de Colágeno</div><div class="product-desc">Pump Rosa · 30ml</div><div class="product-price-row"><span class="product-price">R$ 250,46</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="ressecamento" data-cat="seruns"><div class="product-img-placeholder"><span>💧</span><span>Hyaluronic C+E</span></div><div class="product-info"><div class="product-name">Sérum Hyaluronic Booster C+E</div><div class="product-desc">30ml</div><div class="product-price-row"><span class="product-price">R$ 154,49</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="sinais linhas" data-cat="seruns"><div class="product-img-placeholder"><span>⚡</span><span>Nano BTX</span></div><div class="product-info"><div class="product-name">Sérum Nano BTX</div><div class="product-desc">30ml</div><div class="product-price-row"><span class="product-price">R$ 126,63</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="ressecamento" data-cat="seruns"><div class="product-img-placeholder"><span>🧬</span><span>Mixbean</span></div><div class="product-info"><div class="product-name">Sérum Mixbean</div><div class="product-desc">Phytofirm Biotic + Exossomos · 30ml</div><div class="product-price-row"><span class="product-price">R$ 114,24</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="acne oleosidade" data-cat="seruns"><div class="product-img-placeholder"><span>🌟</span><span>Niacinamida 10</span></div><div class="product-info"><div class="product-name">Sérum Niacinamida 10 + ZN</div><div class="product-desc">30ml</div><div class="product-price-row"><span class="product-price">R$ 123,53</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="sinais linhas" data-cat="seruns"><span class="product-badge">Best Seller</span><div class="product-img-placeholder"><span>🌹</span><span>Peptídeos</span></div><div class="product-info"><div class="product-name">Sérum Peptídeos</div><div class="product-desc">30ml</div><div class="product-price-row"><span class="product-price">R$ 169,97</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="acne oleosidade" data-cat="seruns"><div class="product-img-placeholder"><span>🔬</span><span>Pore Minimizing</span></div><div class="product-info"><div class="product-name">Sérum Pore Minimizing</div><div class="product-desc">30ml</div><div class="product-price-row"><span class="product-price">R$ 154,49</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="sinais linhas" data-cat="seruns"><span class="product-badge novo">Novo</span><div class="product-img-placeholder"><span>⏳</span><span>Time Skin EXO</span></div><div class="product-info"><div class="product-name">Sérum Time Skin EXO</div><div class="product-desc">Anti-rugas Intensivo · 30ml</div><div class="product-price-row"><span class="product-price">R$ 185,45</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="manchas" data-cat="seruns"><div class="product-img-placeholder"><span>🌟</span><span>SkinGlass</span></div><div class="product-info"><div class="product-name">Sérum SkinGlass</div><div class="product-desc">Clareador/Melasma · 30ml</div><div class="product-price-row"><span class="product-price">R$ 145,20</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="sinais" data-cat="seruns"><span class="product-badge">Premium</span><div class="product-img-placeholder"><span>🧬</span><span>Anti Zombie Cells</span></div><div class="product-info"><div class="product-name">Sérum Anti Zombie Cells</div><div class="product-desc">PDRN + EXO · 30ml</div><div class="product-price-row"><span class="product-price">R$ 340,25</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-cat="seruns"><div class="product-img-placeholder"><span>🧪</span><span>Mini Séruns</span></div><div class="product-info"><div class="product-name">Mini Séruns Variados</div><div class="product-desc">Antiox, Colágeno, Hyaluronic, BTX · 10ml</div><div class="product-price-row"><span class="product-price">R$ 61,61</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="sinais" data-cat="seruns"><div class="product-img-placeholder"><span>🧬</span><span>Mini Anti Zombie</span></div><div class="product-info"><div class="product-name">Mini Sérum Anti Zombie Cells</div><div class="product-desc">10ml</div><div class="product-price-row"><span class="product-price">R$ 92,57</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <!-- ÁREA DOS OLHOS -->
+      <div class="product-card reveal" data-concern="sinais linhas" data-cat="olhos"><span class="product-badge novo">Novo</span><div class="product-img-placeholder"><span>👁️</span><span>Eye Repair</span></div><div class="product-info"><div class="product-name">Eye Repair Exossomos</div><div class="product-desc">Diurno</div><div class="product-price-row"><span class="product-price">R$ 219,50</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="sinais" data-cat="olhos"><div class="product-img-placeholder"><span>🌙</span><span>Eye Sleeping Mask</span></div><div class="product-info"><div class="product-name">Eye Sleeping Mask PDRN</div><div class="product-desc">Noturno · Pote · 10g</div><div class="product-price-row"><span class="product-price">R$ 111,15</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="sinais" data-cat="olhos"><div class="product-img-placeholder"><span>🌙</span><span>Eye Mask Pump</span></div><div class="product-info"><div class="product-name">Eye Sleeping Mask PDRN</div><div class="product-desc">Noturno · Pump Rollon · 20g</div><div class="product-price-row"><span class="product-price">R$ 157,59</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <!-- CREMES FACIAIS -->
+      <div class="product-card reveal" data-concern="manchas" data-cat="cremes"><div class="product-img-placeholder"><span>🍊</span><span>Double Vit C</span></div><div class="product-info"><div class="product-name">Double Vitamina C 10%</div><div class="product-desc">Pump Friso Dourado · 30g</div><div class="product-price-row"><span class="product-price">R$ 123,53</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="manchas" data-cat="cremes"><div class="product-img-placeholder"><span>🍊</span><span>Double Vit C Gold</span></div><div class="product-info"><div class="product-name">Double Vitamina C 10%</div><div class="product-desc">Pump Dourado · 30g</div><div class="product-price-row"><span class="product-price">R$ 185,45</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="manchas" data-cat="cremes"><span class="product-badge">Premium</span><div class="product-img-placeholder"><span>🍊</span><span>Double Vit C Rosa</span></div><div class="product-info"><div class="product-name">Double Vitamina C 10%</div><div class="product-desc">Pote Rosa · 30g</div><div class="product-price-row"><span class="product-price">R$ 247,37</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-cat="cremes"><div class="product-img-placeholder"><span>🌙</span><span>Night Cream Retinol</span></div><div class="product-info"><div class="product-name">Night Cream Retinol Melatonin</div><div class="product-desc">Pump Friso Dourado · 30g</div><div class="product-price-row"><span class="product-price">R$ 123,53</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-cat="cremes"><div class="product-img-placeholder"><span>🌙</span><span>Night Cream Gold</span></div><div class="product-info"><div class="product-name">Night Cream Retinol Melatonin</div><div class="product-desc">Pump Dourado · 30g</div><div class="product-price-row"><span class="product-price">R$ 185,45</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-cat="cremes"><span class="product-badge">Premium</span><div class="product-img-placeholder"><span>🌙</span><span>Night Cream Rosa</span></div><div class="product-info"><div class="product-name">Night Cream Retinol Melatonin</div><div class="product-desc">Pote Rosa · 30g</div><div class="product-price-row"><span class="product-price">R$ 247,37</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="sinais linhas" data-cat="cremes"><div class="product-img-placeholder"><span>💜</span><span>Dermopausa</span></div><div class="product-info"><div class="product-name">Dermopausa Cream PDRN</div><div class="product-desc">Pote Branco · 30g</div><div class="product-price-row"><span class="product-price">R$ 154,49</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="sinais linhas" data-cat="cremes"><div class="product-img-placeholder"><span>💜</span><span>Dermopausa Gold</span></div><div class="product-info"><div class="product-name">Dermopausa Cream PDRN</div><div class="product-desc">Pump Friso Dourado · 30g</div><div class="product-price-row"><span class="product-price">R$ 216,41</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="sinais linhas" data-cat="cremes"><span class="product-badge">Premium</span><div class="product-img-placeholder"><span>💜</span><span>Dermopausa Rosa</span></div><div class="product-info"><div class="product-name">Dermopausa Cream PDRN</div><div class="product-desc">Pote Rosa · 30g</div><div class="product-price-row"><span class="product-price">R$ 263,16</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <!-- CUIDADOS ESPECIAIS -->
+      <div class="product-card reveal" data-concern="ressecamento" data-cat="especiais"><div class="product-img-placeholder"><span>🌸</span><span>Gel Calmante</span></div><div class="product-info"><div class="product-name">Gel Creme Calmante</div><div class="product-desc">Pele Sensível / Pós Procedimento · 15g</div><div class="product-price-row"><span class="product-price">R$ 80,19</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-concern="sinais" data-cat="especiais"><div class="product-img-placeholder"><span>✨</span><span>Firming Cream</span></div><div class="product-info"><div class="product-name">Firming Cream Pescoço e Colo</div><div class="product-desc">120ml</div><div class="product-price-row"><span class="product-price">R$ 185,45</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <!-- TRATAMENTO LABIAL -->
+      <div class="product-card reveal" data-cat="labial"><div class="product-img-placeholder"><span>💋</span><span>Lipscrub</span></div><div class="product-info"><div class="product-name">Lipscrub Esfoliante Labial</div><div class="product-desc">10g</div><div class="product-price-row"><span class="product-price">R$ 89,78</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-cat="labial"><div class="product-img-placeholder"><span>🫧</span><span>Mousse Softlips</span></div><div class="product-info"><div class="product-name">Mousse de Limpeza Labial Softlips</div><div class="product-desc">50ml</div><div class="product-price-row"><span class="product-price">R$ 108,36</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-cat="labial"><div class="product-img-placeholder"><span>✨</span><span>Hydragloss</span></div><div class="product-info"><div class="product-name">Hydragloss Sérum Labial</div><div class="product-desc">Sérum labial intensivo</div><div class="product-price-row"><span class="product-price">R$ 120,74</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-cat="labial"><div class="product-img-placeholder"><span>🌿</span><span>Hydralips</span></div><div class="product-info"><div class="product-name">Hydralips Máscara Hidratante Labial</div><div class="product-desc">Máscara noturna labial</div><div class="product-price-row"><span class="product-price">R$ 123,53</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <!-- CAPILAR -->
+      <div class="product-card reveal" data-cat="capilar"><div class="product-img-placeholder"><span>💆</span><span>Loção Antiqueda</span></div><div class="product-info"><div class="product-name">Loção Capilar Antiqueda</div><div class="product-desc">50ml</div><div class="product-price-row"><span class="product-price">R$ 101,86</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-cat="capilar"><div class="product-img-placeholder"><span>💨</span><span>HairCare Spray</span></div><div class="product-info"><div class="product-name">HairCare Spray 3in1</div><div class="product-desc">Protetor, Antifrizz, Perfume · 100ml</div><div class="product-price-row"><span class="product-price">R$ 92,57</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-cat="capilar"><div class="product-img-placeholder"><span>💨</span><span>HairCare Spray Mini</span></div><div class="product-info"><div class="product-name">HairCare Spray 3in1</div><div class="product-desc">Protetor, Antifrizz, Perfume · 50ml</div><div class="product-price-row"><span class="product-price">R$ 61,61</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <!-- KITS PROMOCIONAIS -->
+      <div class="product-card reveal" data-cat="kits"><span class="product-badge">Kit</span><div class="product-img-placeholder"><span>🎁</span><span>Kit Pós Laser</span></div><div class="product-info"><div class="product-name">Kit Pós Laser Lavieen</div><div class="product-desc">Recuperação e cuidado pós procedimento</div><div class="product-price-row"><span class="product-price">R$ 247,65</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-cat="kits"><span class="product-badge">Kit</span><div class="product-img-placeholder"><span>✈️</span><span>Kit Viagem</span></div><div class="product-info"><div class="product-name">Kit Miniatura Viagem</div><div class="product-desc">Acompanha Necessaire</div><div class="product-price-row"><span class="product-price">R$ 278,33</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-cat="kits"><span class="product-badge">Kit</span><div class="product-img-placeholder"><span>🌸</span><span>Kit Calmante</span></div><div class="product-info"><div class="product-name">Kit Calmante Pós Procedimentos</div><div class="product-desc">Ideal para pele sensível e reativa</div><div class="product-price-row"><span class="product-price">R$ 247,65</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-cat="kits"><span class="product-badge">Kit</span><div class="product-img-placeholder"><span>🔬</span><span>Kit Acne</span></div><div class="product-info"><div class="product-name">Kit Tratamento Acne</div><div class="product-desc">Rotina completa antiacne</div><div class="product-price-row"><span class="product-price">R$ 340,53</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-cat="kits"><span class="product-badge">Kit</span><div class="product-img-placeholder"><span>🌟</span><span>Kit Manchas</span></div><div class="product-info"><div class="product-name">Kit Tratamento Manchas</div><div class="product-desc">Rotina clareadora completa</div><div class="product-price-row"><span class="product-price">R$ 433,41</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-cat="kits"><span class="product-badge">Kit</span><div class="product-img-placeholder"><span>💆</span><span>Kit Básico</span></div><div class="product-info"><div class="product-name">Kit Inicial Básico Skincare</div><div class="product-desc">Para começar sua rotina do zero</div><div class="product-price-row"><span class="product-price">R$ 464,09</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+      <div class="product-card reveal" data-cat="kits"><span class="product-badge">Promo</span><div class="product-img-placeholder"><span>🎯</span><span>Kit Completo</span></div><div class="product-info"><div class="product-name">Kit Completo</div><div class="product-desc">20 Sticks FPS + 20 Blushs 3 in 1</div><div class="product-price-row"><span class="product-price">R$ 4.021,67</span><button class="btn-add">+ Carrinho</button></div></div></div>
+
+    </div><!-- end products-grid -->
+
+    <!-- Contador -->
+    <p class="catalog-count reveal" id="catalogCount"></p>
+
+  </div>
+</div>
+
+<!-- CATEGORIES BY CONCERN -->
+<span id="minha-pele"></span>
+<div class="concerns-section">
+  <div class="concerns-inner">
+    <div class="section-header reveal">
+      <span class="section-eyebrow">Encontre sua Solução</span>
+      <h2 class="section-title">Qual é a sua <em>preocupação?</em></h2>
+      <p class="section-desc">Navegue pelo seu tipo de necessidade e encontre os ativos certos para você.</p>
+    </div>
+    <div class="concerns-grid">
+      <div class="concern-card reveal">
+        <div class="concern-icon">🔬</div>
+        <div class="concern-name">Acne & Poros</div>
+        <div class="concern-desc">Controle de seborreia, poros dilatados e comedões</div>
+      </div>
+      <div class="concern-card reveal">
+        <div class="concern-icon">🌟</div>
+        <div class="concern-name">Manchas</div>
+        <div class="concern-desc">Despigmentação, melasma e uniformização do tom</div>
+      </div>
+      <div class="concern-card reveal">
+        <div class="concern-icon">⏳</div>
+        <div class="concern-name">Sinais de Idade</div>
+        <div class="concern-desc">Linhas finas, rugas e perda de firmeza</div>
+      </div>
+      <div class="concern-card reveal">
+        <div class="concern-icon">💧</div>
+        <div class="concern-name">Hidratação</div>
+        <div class="concern-desc">Barreira cutânea fortalecida e pele plumping</div>
+      </div>
+      <div class="concern-card reveal">
+        <div class="concern-icon">✨</div>
+        <div class="concern-name">Luminosidade</div>
+        <div class="concern-desc">Uniformização, glow e textura refinada</div>
+      </div>
+      <div class="concern-card reveal">
+        <div class="concern-icon">🛡️</div>
+        <div class="concern-name">Proteção Solar</div>
+        <div class="concern-desc">Fotoproteção labial e facial com ativos premium</div>
+      </div>
+      <div class="concern-card reveal">
+        <div class="concern-icon">🌸</div>
+        <div class="concern-name">Pele Sensível</div>
+        <div class="concern-desc">Calmantes, anti-inflamatórios e barreira protetora</div>
+      </div>
+      <div class="concern-card reveal">
+        <div class="concern-icon">💄</div>
+        <div class="concern-name">Lábios & Make</div>
+        <div class="concern-desc">Gloss, stick e cuidados combinados com beleza</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- KITS / ROTINAS -->
+<div class="kits-section">
+  <div class="kits-inner">
+    <div class="section-header reveal">
+      <span class="section-eyebrow" style="color: var(--gold);">Rotinas Completas</span>
+      <h2 class="section-title" style="color: var(--white);">Kits <em style="color: var(--gold-light);">Mais Vendidos</em></h2>
+      <p class="section-desc">Combinações formuladas para resultados reais. Sem complicação.</p>
+    </div>
+    <div class="kits-grid">
+      <div class="kit-card reveal">
+        <div class="kit-img">Kit Antienvelhecimento</div>
+        <div class="kit-info">
+          <div class="kit-name">Kit Antienvelhecimento</div>
+          <div class="kit-items">Sérum Peptídeos + Banco Colágeno + Nano BTX · Combate linhas finas e flacidez</div>
+          <div class="kit-price-row">
+            <div>
+              <span class="kit-price-old">R$ 479,70</span>
+              <span class="kit-price">R$ 359,90</span>
+            </div>
+            <span class="kit-savings">25% off</span>
+          </div>
+        </div>
+      </div>
+      <div class="kit-card reveal">
+        <div class="kit-img">Kit Antiacne</div>
+        <div class="kit-info">
+          <div class="kit-name">Kit Antiacne & Poros</div>
+          <div class="kit-items">Sérum Ácido Salicílico 2% + Gloss Shine · Trata e protege simultaneamente</div>
+          <div class="kit-price-row">
+            <div>
+              <span class="kit-price-old">R$ 239,80</span>
+              <span class="kit-price">R$ 149,90</span>
+            </div>
+            <span class="kit-savings">37% off</span>
+          </div>
+        </div>
+      </div>
+      <div class="kit-card reveal">
+        <div class="kit-img">Kit Luminosidade</div>
+        <div class="kit-info">
+          <div class="kit-name">Kit Luminosidade Total</div>
+          <div class="kit-items">Sérum Antioxidante + Stick Labial FPS75 · Proteção e glow o dia todo</div>
+          <div class="kit-price-row">
+            <div>
+              <span class="kit-price-old">R$ 329,80</span>
+              <span class="kit-price">R$ 219,90</span>
+            </div>
+            <span class="kit-savings">33% off</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align: center; margin-top: 48px;">
+      <a href="#" class="btn-primary">Ver Todos os Kits</a>
+    </div>
+  </div>
+</div>
+
+<!-- BRAND STORY -->
+<span id="nossa-historia"></span>
+<div class="story-section">
+  <div class="story-inner">
+    <div class="story-visual reveal">
+      <div class="story-img-main">
+        <span style="font-family: 'Cormorant Garamond', serif; font-size: 14px; letter-spacing: 3px; color: var(--gold-dark); text-transform: uppercase;">Dra. Patrícia Moura</span>
+      </div>
+      <div class="story-accent">
+        <div class="story-accent-num">20</div>
+        <div class="story-accent-text">anos de<br>expertise</div>
+      </div>
+    </div>
+    <div class="story-text reveal">
+      <span class="section-eyebrow">Nossa História</span>
+      <h2 class="section-title" style="text-align: left;">Ciência com<br><em>propósito feminino</em></h2>
+      <p class="section-desc" style="margin-bottom: 0;">A Patmo nasceu da convicção de que toda mulher merece acesso a dermocosméticos com ativos reais, concentrações eficazes e resultados que se veem.</p>
+      <div class="story-quote">
+        <p class="story-quote-text">"Cada fórmula é desenvolvida com o mesmo rigor que aplico em clínica — porque sua pele merece ciência verdadeira."</p>
+        <span class="story-quote-author">Dra. Patrícia Moura · Fisioterapeuta Dermatofuncional</span>
+      </div>
+      <p class="section-desc" style="margin: 0;">Com 20 anos de experiência em dermatofuncional, cada produto Patmo é formulado para entregar resultados mensuráveis, com ativos tecnológicos selecionados por eficácia comprovada.</p>
+      <div class="stats-row">
+        <div class="stat">
+          <div class="stat-num">5k+</div>
+          <div class="stat-label">Clientes Atendidas</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">8</div>
+          <div class="stat-label">Produtos na Linha</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">98%</div>
+          <div class="stat-label">Satisfação</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<div class="testimonials-section">
+  <div class="testimonials-inner">
+    <div class="section-header reveal">
+      <span class="section-eyebrow">Avaliações</span>
+      <h2 class="section-title">O que nossas <em>clientes dizem</em></h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"Em 30 dias com o Sérum Peptídeos, minha pele ficou visivelmente mais firme. Não esperava resultado tão rápido. Virei fã da Patmo!"</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">A</div>
+          <div>
+            <div class="author-name">Ana Paula R.</div>
+            <div class="author-product">Sérum Peptídeos</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"O Kit Antiacne foi revelação. Minha pele está sem oleosidade, poros visivelmente menores. Produto sério com ativo de verdade."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">C</div>
+          <div>
+            <div class="author-name">Camila S.</div>
+            <div class="author-product">Kit Antiacne</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"O Stick Labial FPS 75 é meu obcecado do verão. Protege, hidrata e ainda deixa um tom incrível. Nunca mais fico sem."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">M</div>
+          <div>
+            <div class="author-name">Mariana F.</div>
+            <div class="author-product">Stick Labial FPS 75</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BLOG -->
+<span id="blog"></span>
+<div class="blog-section">
+  <div class="blog-inner">
+    <div class="section-header reveal">
+      <span class="section-eyebrow">Conteúdo</span>
+      <h2 class="section-title">Blog <em>Patmo</em></h2>
+      <p class="section-desc">Ciência dermatológica traduzida em linguagem humana.</p>
+    </div>
+    <div class="blog-grid">
+      <div class="blog-card reveal">
+        <div class="blog-img">Ácidos Exfoliantes</div>
+        <div class="blog-cat">Ingredientes Ativos</div>
+        <h3 class="blog-title">Ácido Salicílico vs. Mandélico: qual escolher para o seu tipo de pele?</h3>
+        <p class="blog-excerpt">Entenda as diferenças entre os dois ácidos exfoliantes mais populares e como combiná-los para resultados potencializados.</p>
+        <a href="#" class="blog-read">Ler Artigo →</a>
+      </div>
+      <div class="blog-card reveal">
+        <div class="blog-img">Peptídeos na Pele</div>
+        <div class="blog-cat">Antienvelhecimento</div>
+        <h3 class="blog-title">Peptídeos na skincare: a ciência por trás da firmeza</h3>
+        <p class="blog-excerpt">Descubra como os peptídeos agem diretamente nos fibroblastos para estimular a produção de colágeno de dentro para fora.</p>
+        <a href="#" class="blog-read">Ler Artigo →</a>
+      </div>
+      <div class="blog-card reveal">
+        <div class="blog-img">Rotina Diurna</div>
+        <div class="blog-cat">Rotinas & Guias</div>
+        <h3 class="blog-title">Como montar sua rotina matinal em 5 minutos com resultados reais</h3>
+        <p class="blog-excerpt">Uma rotina eficiente não precisa ser longa. Aprenda a sequência correta de aplicação para máxima absorção dos ativos.</p>
+        <a href="#" class="blog-read">Ler Artigo →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NEWSLETTER -->
+<div class="newsletter-wrap">
+  <div class="newsletter">
+    <div class="newsletter-text reveal">
+      <h2>Receba dicas<br>exclusivas & ofertas</h2>
+      <p>Conteúdo sobre skincare, lançamentos e ofertas especiais diretamente no seu e-mail. Sem spam, só ciência.</p>
+    </div>
+    <div class="reveal">
+      <div class="newsletter-form">
+        <input class="newsletter-input" type="email" placeholder="Seu melhor e-mail">
+        <button class="newsletter-btn">Quero receber</button>
+      </div>
+      <p style="font-size: 10px; color: rgba(255,255,255,0.5); margin-top: 12px; letter-spacing: 1px;">Ao cadastrar, você concorda com nossa Política de Privacidade.</p>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-main">
+    <div class="footer-brand">
+      <a href="#" class="logo" style="margin-bottom: 12px; display: inline-flex;">
+        <img src="data:image/png;base64,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" alt="Patmo Dermocosméticos" style="height:112px;width:auto;display:block;filter:brightness(0) invert(1);">
+      </a>
+      <p>Dermocosméticos premium formulados por Dra. Patrícia Moura, fisioterapeuta dermatofuncional com 20 anos de experiência.</p>
+      <div class="footer-social">
+        <div class="social-btn">f</div>
+        <div class="social-btn">ig</div>
+        <div class="social-btn">yt</div>
+        <div class="social-btn">tt</div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Produtos</h4>
+      <a href="#">Séruns</a>
+      <a href="#">Stick Labial</a>
+      <a href="#">Gloss</a>
+      <a href="#">Kits & Rotinas</a>
+      <a href="#">Lançamentos</a>
+    </div>
+    <div class="footer-col">
+      <h4>Minha Pele</h4>
+      <a href="#">Acne & Poros</a>
+      <a href="#">Manchas</a>
+      <a href="#">Antienvelhecimento</a>
+      <a href="#">Hidratação</a>
+      <a href="#">Proteção Solar</a>
+    </div>
+    <div class="footer-col">
+      <h4>Patmo</h4>
+      <a href="#nossa-historia">Nossa História</a>
+      <a href="#nossa-historia">Tecnologia</a>
+      <a href="#blog">Blog</a>
+      <a href="#">Fale Conosco</a>
+      <a href="#">SAC: (11) 91124-8845</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Patmo Dermocosméticos · Todos os direitos reservados</span>
+    <div class="footer-seals">
+      <span class="seal">Cruelty Free</span>
+      <span class="seal">Derma Tested</span>
+      <span class="seal">SSL Seguro</span>
+    </div>
+  </div>
+</footer>
+
+<!-- WHATSAPP -->
+<a href="https://wa.me/5511911248845" class="whatsapp-float" target="_blank">💬</a>
+
+<!-- ── QUIZ FLUTUANTE ── -->
+<style>
+  /* Botão flutuante do quiz */
+  .quiz-float-btn {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    z-index: 1000;
+    background: var(--charcoal);
+    color: var(--white);
+    border: none;
+    cursor: pointer;
+    padding: 13px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: background 0.2s, transform 0.2s;
+    border-left: 3px solid var(--gold);
+  }
+  .quiz-float-btn:hover { background: #1a1a1a; transform: translateY(-2px); }
+  .quiz-float-btn .qfb-icon { font-size: 18px; }
+  .quiz-float-btn .qfb-pulse {
+    position: absolute;
+    top: -4px; right: -4px;
+    width: 10px; height: 10px;
+    background: var(--gold);
+    border-radius: 50%;
+    animation: qpulse 1.8s infinite;
+  }
+  @keyframes qpulse {
+    0%,100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.5); opacity: 0.5; }
+  }
+
+  /* Overlay */
+  .quiz-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1001;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .quiz-overlay.open { opacity: 1; pointer-events: all; }
+
+  /* Painel lateral */
+  .quiz-panel {
+    position: fixed;
+    top: 0; right: 0;
+    width: 440px;
+    max-width: 100vw;
+    height: 100vh;
+    background: var(--cream);
+    z-index: 1002;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: -8px 0 40px rgba(0,0,0,0.15);
+  }
+  .quiz-panel.open { transform: translateX(0); }
+
+  /* Cabeçalho do painel */
+  .qp-header {
+    background: var(--charcoal);
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    border-bottom: 2px solid var(--gold);
+  }
+  .qp-header-left { display: flex; align-items: center; gap: 12px; }
+  .qp-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px; color: white; font-weight: 600;
+    flex-shrink: 0;
+  }
+  .qp-header-info h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px; color: white; font-weight: 400;
+  }
+  .qp-header-info p {
+    font-size: 10px; letter-spacing: 1px;
+    color: var(--gold-light); text-transform: uppercase;
+  }
+  .qp-close {
+    background: none; border: none;
+    color: rgba(255,255,255,0.5);
+    font-size: 22px; cursor: pointer;
+    line-height: 1; padding: 4px;
+    transition: color 0.2s;
+  }
+  .qp-close:hover { color: white; }
+
+  /* Barra de progresso */
+  .qp-progress {
+    height: 3px; background: rgba(255,255,255,0.1);
+    flex-shrink: 0;
+  }
+  .qp-progress-bar {
+    height: 3px; background: var(--gold);
+    transition: width 0.5s ease; width: 0%;
+  }
+
+  /* Feed de mensagens */
+  .qp-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    scroll-behavior: smooth;
+  }
+  .qp-messages::-webkit-scrollbar { width: 4px; }
+  .qp-messages::-webkit-scrollbar-track { background: transparent; }
+  .qp-messages::-webkit-scrollbar-thumb { background: var(--gold-light); border-radius: 2px; }
+
+  /* Mensagens dentro do painel */
+  .qp-msg { display: flex; gap: 10px; align-items: flex-end; opacity: 0; transform: translateY(12px); transition: opacity 0.35s, transform 0.35s; }
+  .qp-msg.show { opacity: 1; transform: translateY(0); }
+  .qp-msg-dra { align-self: flex-start; }
+  .qp-msg-dra .qp-av {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px; color: white; font-weight: 600; flex-shrink: 0;
+  }
+  .qp-msg-dra .qp-bubble {
+    background: white;
+    border: 1px solid var(--gold-light);
+    border-radius: 14px; border-bottom-left-radius: 0;
+    padding: 12px 14px; max-width: 300px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .qp-bubble-name {
+    font-size: 9px; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .qp-bubble-text {
+    font-size: 13px; line-height: 1.6;
+    color: var(--charcoal); font-weight: 300;
+  }
+  .qp-msg-user { align-self: flex-end; flex-direction: row-reverse; }
+  .qp-msg-user .qp-bubble {
+    background: var(--gold);
+    border-radius: 14px; border-bottom-right-radius: 0;
+    padding: 10px 14px; max-width: 260px;
+  }
+  .qp-msg-user .qp-bubble-text { font-size: 13px; color: white; }
+
+  /* Typing dots */
+  .qp-typing { display: flex; gap: 10px; align-items: flex-end; opacity: 0; transition: opacity 0.3s; }
+  .qp-typing.show { opacity: 1; }
+  .qp-typing .qp-av {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px; color: white; font-weight: 600; flex-shrink: 0;
+  }
+  .qp-dots {
+    background: white; border: 1px solid var(--gold-light);
+    border-radius: 14px; border-bottom-left-radius: 0;
+    padding: 12px 16px; display: flex; gap: 5px; align-items: center;
+  }
+  .qp-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--gold-light);
+    animation: qbounce 1.2s infinite;
+  }
+  .qp-dot:nth-child(2) { animation-delay: 0.2s; }
+  .qp-dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes qbounce {
+    0%,60%,100% { transform: translateY(0); }
+    30% { transform: translateY(-5px); background: var(--gold); }
+  }
+
+  /* Área de input do painel */
+  .qp-input-area {
+    padding: 12px 16px;
+    background: white;
+    border-top: 1px solid var(--gold-light);
+    flex-shrink: 0;
+  }
+  .qp-text-wrap {
+    display: flex; gap: 10px; align-items: center;
+    background: var(--cream); border: 1px solid var(--gold-light);
+    border-radius: 10px; padding: 8px 14px;
+  }
+  .qp-text-inp {
+    flex: 1; border: none; outline: none;
+    background: transparent;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px; color: var(--charcoal);
+  }
+  .qp-text-inp::placeholder { color: var(--gold-light); }
+  .qp-send {
+    background: var(--gold); border: none; cursor: pointer;
+    width: 34px; height: 34px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: background 0.2s;
+  }
+  .qp-send:hover { background: var(--gold-dark); }
+  .qp-send svg { width: 15px; height: 15px; fill: white; }
+
+  .qp-opts { display: flex; flex-direction: column; gap: 8px; }
+  .qp-opt {
+    width: 100%; background: var(--cream);
+    border: 1px solid var(--gold-light); border-radius: 8px;
+    padding: 11px 14px; text-align: left; cursor: pointer;
+    font-family: 'Jost', sans-serif; font-size: 13px;
+    font-weight: 300; color: var(--charcoal);
+    display: flex; align-items: center; gap: 10px;
+    transition: background 0.15s, border-color 0.15s, transform 0.15s;
+  }
+  .qp-opt:hover { background: var(--gold-light); border-color: var(--gold); transform: translateX(3px); }
+  .qp-opt-sub { font-size: 10px; color: var(--warm-gray); margin-top: 2px; }
+
+  .qp-opts-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .qp-opts-2col .qp-opt { flex-direction: column; text-align: center; gap: 4px; font-size: 12px; }
+
+  /* Result no painel */
+  .qp-result {
+    background: white;
+    border: 1px solid var(--gold-light);
+    border-radius: 14px;
+    overflow: hidden;
+    max-width: 340px;
+  }
+  .qp-result-head {
+    background: var(--charcoal);
+    padding: 20px 16px; text-align: center;
+    border-bottom: 2px solid var(--gold);
+  }
+  .qp-result-head .ri { font-size: 36px; margin-bottom: 8px; }
+  .qp-result-head h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; color: white; font-weight: 400; margin-bottom: 4px;
+  }
+  .qp-result-head p { font-size: 11px; color: rgba(255,255,255,0.5); }
+  .qp-result-body { padding: 16px; }
+  .qp-result-label {
+    font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 10px; margin-top: 14px;
+  }
+  .qp-result-label:first-child { margin-top: 0; }
+  .qp-diag {
+    font-size: 12px; line-height: 1.6; color: var(--charcoal);
+    font-weight: 300; background: var(--cream);
+    border-radius: 8px; padding: 12px; margin-bottom: 6px;
+  }
+  .qp-prod {
+    background: var(--cream); border: 1px solid var(--gold-light);
+    border-radius: 8px; padding: 12px; margin-bottom: 8px;
+  }
+  .qp-prod-step { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 2px; }
+  .qp-prod-name { font-family: 'Cormorant Garamond', serif; font-size: 15px; margin-bottom: 2px; }
+  .qp-prod-price { font-size: 12px; color: var(--gold-dark); font-weight: 500; }
+  .qp-alert {
+    background: #FFF8F0; border: 1px solid #F5DEB3;
+    border-radius: 6px; padding: 10px 12px;
+    font-size: 11px; color: #8B6914; line-height: 1.5; margin-top: 8px;
+  }
+  .qp-ctas { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+  .qp-cta-p {
+    background: var(--gold); color: white; border: none;
+    border-radius: 8px; padding: 12px;
+    font-family: 'Jost', sans-serif; font-size: 11px;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .qp-cta-p:hover { background: var(--gold-dark); }
+  .qp-cta-s {
+    background: transparent; color: var(--charcoal);
+    border: 1px solid var(--gold-light); border-radius: 8px; padding: 12px;
+    font-family: 'Jost', sans-serif; font-size: 11px;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .qp-cta-s:hover { background: var(--cream); }
+  .qp-retake {
+    text-align: center; font-size: 10px; color: var(--warm-gray);
+    margin-top: 10px; cursor: pointer; letter-spacing: 1px;
+  }
+  .qp-retake:hover { color: var(--gold-dark); }
+
+  @media (max-width: 480px) {
+    .quiz-panel { width: 100vw; }
+    .quiz-float-btn .qfb-text { display: none; }
+    .quiz-float-btn { padding: 13px 14px; }
+  }
+</style>
+
+<!-- Botão flutuante -->
+<button class="quiz-float-btn" onclick="openQuizPanel()" id="quizFloatBtn">
+  <span class="qfb-pulse"></span>
+  <span class="qfb-icon">✨</span>
+  <span class="qfb-text">Descubra sua Rotina</span>
+</button>
+
+<!-- Overlay -->
+<div class="quiz-overlay" id="quizOverlay" onclick="closeQuizPanel()"></div>
+
+<!-- Painel do Quiz -->
+<div class="quiz-panel" id="quizPanel">
+  <div class="qp-header">
+    <div class="qp-header-left">
+      <div class="qp-avatar">P</div>
+      <div class="qp-header-info">
+        <h4>Dra. Patrícia Moura</h4>
+        <p>Pré-Avaliação Personalizada</p>
+      </div>
+    </div>
+    <button class="qp-close" onclick="closeQuizPanel()">✕</button>
+  </div>
+  <div class="qp-progress"><div class="qp-progress-bar" id="qpProgress"></div></div>
+  <div class="qp-messages" id="qpMessages"></div>
+  <div class="qp-typing" id="qpTyping">
+    <div class="qp-av">P</div>
+    <div class="qp-dots">
+      <div class="qp-dot"></div><div class="qp-dot"></div><div class="qp-dot"></div>
+    </div>
+  </div>
+  <div class="qp-input-area" id="qpInput" style="display:none;"></div>
+</div>
+
+<script>
+// ── QUIZ PANEL ENGINE ──
+const qpState = { data: {}, started: false };
+const qpMsgs  = document.getElementById('qpMessages');
+const qpTyp   = document.getElementById('qpTyping');
+const qpInp   = document.getElementById('qpInput');
+const qpProg  = document.getElementById('qpProgress');
+
+function openQuizPanel() {
+  document.getElementById('quizPanel').classList.add('open');
+  document.getElementById('quizOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  if (!qpState.started) { qpState.started = true; qpRunQuiz(); }
+}
+function closeQuizPanel() {
+  document.getElementById('quizPanel').classList.remove('open');
+  document.getElementById('quizOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function qpSetProgress(pct) { qpProg.style.width = Math.min(pct, 100) + '%'; }
+
+function qpScroll() {
+  setTimeout(() => qpMsgs.scrollTop = qpMsgs.scrollHeight, 100);
+}
+
+function qpAddMsg(type, html, delay = 0) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      const el = document.createElement('div');
+      el.className = `qp-msg qp-msg-${type}`;
+      if (type === 'dra') {
+        el.innerHTML = `<div class="qp-av">P</div>
+          <div class="qp-bubble">
+            <div class="qp-bubble-name">Dra. Patrícia</div>
+            <div class="qp-bubble-text">${html}</div>
+          </div>`;
+      } else {
+        el.innerHTML = `<div class="qp-bubble"><div class="qp-bubble-text">${html}</div></div>`;
+      }
+      qpMsgs.appendChild(el);
+      setTimeout(() => { el.classList.add('show'); qpScroll(); }, 40);
+      resolve();
+    }, delay);
+  });
+}
+
+function qpTyping(ms = 1300) {
+  return new Promise(resolve => {
+    qpTyp.classList.add('show'); qpScroll();
+    setTimeout(() => { qpTyp.classList.remove('show'); resolve(); }, ms);
+  });
+}
+
+function qpClearInput() { qpInp.innerHTML = ''; qpInp.style.display = 'none'; }
+
+function qpTextInput(placeholder, onSubmit) {
+  qpInp.style.display = 'block';
+  qpInp.innerHTML = `<div class="qp-text-wrap">
+    <input class="qp-text-inp" type="text" placeholder="${placeholder}" id="qpTxt" autocomplete="off">
+    <button class="qp-send" id="qpSend"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
+  </div>`;
+  const inp = document.getElementById('qpTxt'), btn = document.getElementById('qpSend');
+  inp.focus();
+  const go = () => { const v = inp.value.trim(); if (!v) return; qpClearInput(); onSubmit(v); };
+  btn.onclick = go; inp.onkeydown = e => { if (e.key === 'Enter') go(); };
+}
+
+function qpEmailInput(onSubmit) {
+  qpInp.style.display = 'block';
+  qpInp.innerHTML = `<div style="display:flex;flex-direction:column;gap:8px;">
+    <div class="qp-text-wrap"><input class="qp-text-inp" type="email" placeholder="Seu e-mail" id="qpEmail" autocomplete="email"></div>
+    <div class="qp-text-wrap">
+      <input class="qp-text-inp" type="tel" placeholder="WhatsApp com DDD" id="qpWa" autocomplete="tel">
+      <button class="qp-send" id="qpSend"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
+    </div>
+  </div>`;
+  document.getElementById('qpEmail').focus();
+  document.getElementById('qpSend').onclick = () => {
+    const e = document.getElementById('qpEmail').value.trim();
+    const w = document.getElementById('qpWa').value.trim();
+    if (!e || !w) return;
+    qpClearInput(); onSubmit(e, w);
+  };
+}
+
+function qpDateInput(onSubmit) {
+  qpInp.style.display = 'block';
+  qpInp.innerHTML = `<div class="qp-text-wrap">
+    <input class="qp-text-inp" type="date" id="qpDate">
+    <button class="qp-send" id="qpSend"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
+  </div>`;
+  document.getElementById('qpDate').focus();
+  document.getElementById('qpSend').onclick = () => {
+    const v = document.getElementById('qpDate').value;
+    if (!v) return;
+    const age = new Date().getFullYear() - new Date(v).getFullYear();
+    qpClearInput(); onSubmit(v, age);
+  };
+}
+
+function qpOptions(opts, onSelect, cols = 1) {
+  qpInp.style.display = 'block';
+  const cls = cols === 2 ? 'qp-opts-2col' : 'qp-opts';
+  qpInp.innerHTML = `<div class="${cls}">${opts.map(o =>
+    `<button class="qp-opt" data-val="${o.val}">
+      ${o.emoji ? `<span style="font-size:18px">${o.emoji}</span>` : ''}
+      <div><div>${o.label}</div>${o.sub ? `<div class="qp-opt-sub">${o.sub}</div>` : ''}</div>
+    </button>`).join('')}</div>`;
+  qpInp.querySelectorAll('.qp-opt').forEach(btn => {
+    btn.onclick = () => {
+      const val = btn.dataset.val;
+      const label = btn.querySelectorAll('div div')[0].textContent;
+      const emoji = btn.querySelector('span') ? btn.querySelector('span').textContent : '';
+      qpClearInput(); onSelect(val, (emoji + ' ' + label).trim());
+    };
+  });
+}
+
+function qpYesNo(onSelect) {
+  qpOptions([{ val:'sim', emoji:'✅', label:'Sim' }, { val:'nao', emoji:'❌', label:'Não' }], onSelect, 2);
+}
+
+// ── RECOMMENDATION ENGINE (same logic) ──
+const qpCatalog = {
+  limpeza: {
+    antioleosidade: { name: 'Mousse de Limpeza (Complexo Antioleosidade)', price: 'R$ 101,86', step: 'Limpeza' },
+    micellar_c:     { name: 'Mousse Micellar C (Vitamina C + Centella)', price: 'R$ 111,15', step: 'Limpeza' },
+    hidratante:     { name: 'Sabonete Facial Hidratante', price: 'R$ 101,86', step: 'Limpeza' },
+  },
+  tonico: {
+    essence:     { name: 'Essence Toner (Lactobacillus, Exossomos)', price: 'R$ 86,38', step: 'Tônico' },
+    agua_termal: { name: 'Água Termal Hidratante', price: 'R$ 80,19', step: 'Tônico' },
+  },
+  serum: {
+    salicilico:  { name: 'Sérum Ácido Salicílico 2%', price: 'R$ 123,53', step: 'Sérum' },
+    niacinamida: { name: 'Sérum Niacinamida 10 + ZN', price: 'R$ 123,53', step: 'Sérum' },
+    pore_min:    { name: 'Sérum Pore Minimizing', price: 'R$ 154,49', step: 'Sérum' },
+    skinglass:   { name: 'Sérum SkinGlass (Clareador/Melasma)', price: 'R$ 145,20', step: 'Sérum' },
+    hyaluronic:  { name: 'Sérum Hyaluronic Booster C+E', price: 'R$ 154,49', step: 'Sérum' },
+    peptideos:   { name: 'Sérum Peptídeos', price: 'R$ 169,97', step: 'Sérum' },
+    banco_col:   { name: 'Sérum Banco de Colágeno', price: 'R$ 126,63', step: 'Sérum' },
+    mixbean:     { name: 'Sérum Mixbean (Phytofirm + Exossomos)', price: 'R$ 114,24', step: 'Sérum' },
+    time_skin:   { name: 'Sérum Time Skin EXO (Anti-rugas)', price: 'R$ 185,45', step: 'Sérum' },
+  },
+  creme: {
+    vitamina_c:    { name: 'Double Vitamina C 10%', price: 'R$ 123,53', step: 'Creme Diurno' },
+    night_retinol: { name: 'Night Cream Retinol Melatonin', price: 'R$ 123,53', step: 'Creme Noturno' },
+    gel_calmante:  { name: 'Gel Creme Calmante (Pele Sensível)', price: 'R$ 80,19', step: 'Hidratante' },
+  },
+  protecao: {
+    fps60_cc: { name: 'Camaleão Cream FPS 60', price: 'R$ 185,45', step: 'Proteção Solar' },
+    fps60:    { name: 'Hidratante Facial FPS 60', price: 'R$ 169,97', step: 'Proteção Solar' },
+  },
+  olhos: {
+    eye_repair: { name: 'Eye Repair Exossomos (Diurno)', price: 'R$ 219,50', step: 'Área dos Olhos' },
+    eye_mask:   { name: 'Eye Sleeping Mask PDRN (Noturno)', price: 'R$ 111,15', step: 'Área dos Olhos' },
+  },
+  kits: {
+    acne:     { name: 'Kit Tratamento Acne', price: 'R$ 340,53', desc: 'Kit completo para controle de acne' },
+    manchas:  { name: 'Kit Tratamento Manchas', price: 'R$ 433,41', desc: 'Kit completo para clareamento' },
+    calmante: { name: 'Kit Calmante Pós Procedimentos', price: 'R$ 247,65', desc: 'Para pele sensível e reativa' },
+  }
+};
+
+function qpBuildRec(d) {
+  let routine = [], kit = null, diag = '', alerta = '';
+  const { queixa, fototipo, gestante, alergia_sali, nome } = d;
+  if (gestante) alerta = '⚠️ Removemos Retinol e Glicólico — sua rotina usa ativos seguros para esse momento especial.';
+  if (queixa === 'acne') {
+    diag = `${nome}, sua pele precisa de <strong>controle de oleosidade e tratamento ativo</strong> da acne. Rotina com regulação sebácea e poros refinados.`;
+    routine = [qpCatalog.limpeza.antioleosidade, qpCatalog.tonico.essence, alergia_sali ? qpCatalog.serum.niacinamida : qpCatalog.serum.salicilico, qpCatalog.serum.pore_min, qpCatalog.protecao.fps60];
+    kit = qpCatalog.kits.acne;
+  } else if (queixa === 'manchas') {
+    diag = `${nome}, vamos trabalhar em <strong>luminosidade e despigmentação</strong>. Ativos clareadores de manhã, renovação à noite e proteção solar rigorosa.`;
+    routine = [qpCatalog.limpeza.micellar_c, qpCatalog.tonico.essence, qpCatalog.serum.skinglass, qpCatalog.creme.vitamina_c, qpCatalog.protecao.fps60_cc];
+    kit = qpCatalog.kits.manchas;
+  } else if (queixa === 'rugas') {
+    diag = `${nome}, foco em <strong>estímulo de colágeno e firmeza</strong>. Peptídeos bioativos, exossomos e retinol para suavizar linhas e devolver densidade.`;
+    routine = [qpCatalog.limpeza.micellar_c, qpCatalog.tonico.essence, qpCatalog.serum.peptideos, qpCatalog.serum.banco_col, gestante ? qpCatalog.serum.hyaluronic : qpCatalog.creme.night_retinol, qpCatalog.olhos.eye_repair, qpCatalog.protecao.fps60];
+  } else if (queixa === 'hidratacao') {
+    diag = `${nome}, vamos <strong>reconstruir a barreira cutânea</strong> e trazer hidratação profunda. Efeito Glass Skin real!`;
+    routine = [qpCatalog.limpeza.hidratante, qpCatalog.tonico.agua_termal, qpCatalog.serum.hyaluronic, qpCatalog.serum.mixbean, qpCatalog.creme.vitamina_c, qpCatalog.protecao.fps60];
+  } else if (queixa === 'sensibilidade') {
+    diag = `${nome}, objetivo: <strong>acalmar, proteger e fortalecer</strong>. Ativos anti-inflamatórios e barreira reforçada — menos é mais!`;
+    routine = [qpCatalog.limpeza.hidratante, qpCatalog.tonico.agua_termal, qpCatalog.serum.mixbean, qpCatalog.creme.gel_calmante, qpCatalog.serum.hyaluronic, qpCatalog.protecao.fps60];
+    kit = qpCatalog.kits.calmante;
+  }
+  if (alergia_sali && queixa === 'acne') alerta += ' Substituímos o Salicílico pela Niacinamida 10%.';
+  return { routine: routine.filter(Boolean), kit, diag, alerta };
+}
+
+// ── QUIZ FLOW ──
+async function qpRunQuiz() {
+  qpSetProgress(5);
+  await qpTyping(1600);
+  await qpAddMsg('dra', 'Olá! Que prazer ter você aqui! 🌸 Sou a <strong>Dra. Patrícia Moura</strong>, fisioterapeuta dermatofuncional.');
+  await qpTyping(1000);
+  await qpAddMsg('dra', 'Vou te fazer algumas perguntas para montar sua rotina personalizada Patmo. Vamos?');
+  qpOptions([{ val:'sim', emoji:'✨', label:'Sim, vamos!' }], async () => {
+    await qpAddMsg('user', '✨ Sim, vamos!'); qpStep1();
+  });
+}
+
+async function qpStep1() { // Nome
+  qpSetProgress(15);
+  await qpTyping(900);
+  await qpAddMsg('dra', 'Como você gostaria de ser chamada?');
+  qpTextInput('Seu nome...', async v => { qpState.data.nome = v; await qpAddMsg('user', v); qpStep2(); });
+}
+
+async function qpStep2() { // Contato
+  qpSetProgress(25);
+  await qpTyping(900);
+  await qpAddMsg('dra', `Que lindo nome, <strong>${qpState.data.nome}</strong>! 💛 Me passa seu e-mail e WhatsApp para eu enviar sua rotina:`);
+  qpEmailInput(async (e, w) => {
+    qpState.data.email = e; qpState.data.whats = w;
+    await qpAddMsg('user', `📧 ${e} · 📱 ${w}`); qpStep3();
+  });
+}
+
+async function qpStep3() { // Idade
+  qpSetProgress(35);
+  await qpTyping(900);
+  await qpAddMsg('dra', 'Qual sua data de nascimento? A pele tem necessidades diferentes em cada fase! 🌿');
+  qpDateInput(async (v, age) => {
+    qpState.data.idade = age;
+    const f = new Date(v + 'T12:00:00').toLocaleDateString('pt-BR');
+    await qpAddMsg('user', `📅 ${f} (${age} anos)`); qpStep4();
+  });
+}
+
+async function qpStep4() { // Queixa
+  qpSetProgress(45);
+  await qpTyping(1000);
+  await qpAddMsg('dra', `${qpState.data.nome}, se você pudesse focar em <strong>uma coisa</strong> hoje, qual seria?`);
+  qpOptions([
+    { val:'acne',         emoji:'💧', label:'Controlar oleosidade e acne',       sub:'Poros, brilho, cravos' },
+    { val:'manchas',      emoji:'🌟', label:'Clarear manchas',                   sub:'Melasma, tom irregular' },
+    { val:'rugas',        emoji:'⏳', label:'Suavizar linhas e rugas',            sub:'Firmeza, elasticidade' },
+    { val:'hidratacao',   emoji:'🌊', label:'Hidratar e iluminar',               sub:'Opacidade, ressecamento' },
+    { val:'sensibilidade',emoji:'🌸', label:'Diminuir sensibilidade',            sub:'Vermelhidão, irritação' },
+  ], async (v, l) => { qpState.data.queixa = v; await qpAddMsg('user', l); qpStep5(); });
+}
+
+async function qpStep5() { // Fototipo
+  qpSetProgress(58);
+  await qpTyping(1000);
+  await qpAddMsg('dra', 'Como sua pele reage ao sol? ☀️');
+  qpOptions([
+    { val:'clara',  emoji:'🤍', label:'Clara',         sub:'Sempre queima' },
+    { val:'media',  emoji:'🤎', label:'Morena Média',  sub:'Queima às vezes' },
+    { val:'escura', emoji:'🖤', label:'Morena/Negra',  sub:'Raramente queima' },
+  ], async (v, l) => { qpState.data.fototipo = v; await qpAddMsg('user', l); qpStep6(); });
+}
+
+async function qpStep6() { // Tipo pele
+  qpSetProgress(68);
+  await qpTyping(900);
+  await qpAddMsg('dra', 'Como seu rosto se sente ao final do dia?');
+  qpOptions([
+    { val:'oleosa', emoji:'💧', label:'Oleosa',  sub:'Brilho intenso, poros abertos' },
+    { val:'mista',  emoji:'⚖️', label:'Mista',   sub:'Brilho só na zona T' },
+    { val:'seca',   emoji:'🏜️', label:'Seca',    sub:'Repuxamento, sem brilho' },
+    { val:'normal', emoji:'✨', label:'Normal',  sub:'Equilibrada' },
+  ], async (v, l) => { qpState.data.pele = v; await qpAddMsg('user', l); qpStep7(); });
+}
+
+async function qpStep7() { // Alergia Sali
+  qpSetProgress(78);
+  await qpTyping(800);
+  await qpAddMsg('dra', 'Você tem alergia ao <strong>Ácido Salicílico</strong>? 🛡️');
+  qpYesNo(async (v, l) => { qpState.data.alergia_sali = v === 'sim'; await qpAddMsg('user', l); qpStep8(); });
+}
+
+async function qpStep8() { // Gestante
+  qpSetProgress(88);
+  await qpTyping(800);
+  await qpAddMsg('dra', 'Você está <strong>grávida ou amamentando</strong>? 🌷');
+  qpYesNo(async (v, l) => { qpState.data.gestante = v === 'sim'; await qpAddMsg('user', l); qpStepResult(); });
+}
+
+async function qpStepResult() {
+  qpSetProgress(95);
+  qpClearInput();
+  await qpTyping(800);
+  await qpAddMsg('dra', `Perfeita! Analisando seu perfil, <strong>${qpState.data.nome}</strong>... 🔬`);
+  await qpTyping(2500);
+  qpSetProgress(100);
+  await qpAddMsg('dra', 'Pronto! Aqui está sua rotina personalizada 💛');
+
+  const rec = qpBuildRec(qpState.data);
+  const icons = { acne:'💧', manchas:'🌟', rugas:'⏳', hidratacao:'🌊', sensibilidade:'🌸' };
+  const titles = { acne:'Rotina Anti-Acne', manchas:'Rotina Clareadora', rugas:'Rotina Antienvelhecimento', hidratacao:'Rotina Glass Skin', sensibilidade:'Rotina Calmante' };
+
+  const prodsHTML = rec.routine.map(p => `
+    <div class="qp-prod">
+      <div class="qp-prod-step">${p.step}</div>
+      <div class="qp-prod-name">${p.name}</div>
+      <div class="qp-prod-price">${p.price}</div>
+    </div>`).join('');
+
+  const kitHTML = rec.kit ? `
+    <div class="qp-result-label">Kit Completo</div>
+    <div class="qp-prod" style="background:var(--charcoal);border-color:var(--gold-dark);">
+      <div class="qp-prod-step" style="color:var(--gold);">Kit Sugerido</div>
+      <div class="qp-prod-name" style="color:white;">${rec.kit.name}</div>
+      <div class="qp-prod-price" style="color:var(--gold-light);">${rec.kit.price} · ${rec.kit.desc}</div>
+    </div>` : '';
+
+  const alertHTML = rec.alerta ? `<div class="qp-alert">${rec.alerta}</div>` : '';
+
+  const resultEl = document.createElement('div');
+  resultEl.className = 'qp-msg qp-msg-dra';
+  resultEl.innerHTML = `<div class="qp-av">P</div>
+    <div class="qp-result">
+      <div class="qp-result-head">
+        <div class="ri">${icons[qpState.data.queixa]}</div>
+        <h3>${titles[qpState.data.queixa]}</h3>
+        <p>Para ${qpState.data.nome} · ${qpState.data.idade} anos</p>
+      </div>
+      <div class="qp-result-body">
+        <div class="qp-result-label">Diagnóstico</div>
+        <div class="qp-diag">${rec.diag}</div>
+        ${alertHTML}
+        <div class="qp-result-label">Sua Rotina</div>
+        ${prodsHTML}
+        ${kitHTML}
+        <div class="qp-ctas">
+          <button class="qp-cta-p" onclick="qpWhats()">💬 Falar com a Dra. Patrícia</button>
+          <button class="qp-cta-s" onclick="closeQuizPanel()">Fechar e Ver o Site</button>
+        </div>
+        <p class="qp-retake" onclick="qpReset()">↩ Refazer a avaliação</p>
+      </div>
+    </div>`;
+  qpMsgs.appendChild(resultEl);
+  setTimeout(() => { resultEl.classList.add('show'); qpScroll(); }, 50);
+}
+
+function qpWhats() {
+  const msg = encodeURIComponent(`Olá Dra. Patrícia! Fiz a pré-avaliação no site. Meu nome é ${qpState.data.nome} e gostaria de saber mais sobre minha rotina personalizada! 💛`);
+  window.open(`https://wa.me/5511911248845?text=${msg}`, '_blank');
+}
+
+function qpReset() {
+  qpState.data = {}; qpState.started = false;
+  qpMsgs.innerHTML = '';
+  qpClearInput();
+  qpSetProgress(0);
+  qpState.started = true;
+  qpRunQuiz();
+}
+</script>
+
+<script>
+  // Hero Slider
+  let current = 0;
+  const slides = document.querySelectorAll('.slide');
+  const indicators = document.querySelectorAll('.indicator');
+
+  function goToSlide(n) {
+    slides[current].classList.remove('active');
+    indicators[current].classList.remove('active');
+    current = n;
+    slides[current].classList.add('active');
+    indicators[current].classList.add('active');
+  }
+
+  setInterval(() => {
+    goToSlide((current + 1) % slides.length);
+  }, 5000);
+
+  // Scroll Reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  revealEls.forEach(el => observer.observe(el));
+
+  // Add to cart buttons
+  const addBtns = document.querySelectorAll('.btn-add');
+  const badge = document.querySelector('.cart-badge');
+  let cartCount = 0;
+  addBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      cartCount++;
+      badge.textContent = cartCount;
+      btn.textContent = '✓ Adicionado';
+      btn.style.background = 'var(--gold)';
+      setTimeout(() => {
+        btn.textContent = '+ Carrinho';
+        btn.style.background = '';
+      }, 1500);
+    });
+  });
+
+
+  // ── CATALOG FILTERS ──
+  function filterByConcern(concern) {
+    // Close dropdowns
+    document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
+    document.querySelectorAll('.dropdown-menu').forEach(m => {
+      m.style.opacity = '0'; m.style.pointerEvents = 'none';
+    });
+    // Reset category filter buttons to "Todos"
+    document.querySelectorAll('.filter-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.filter === 'all');
+    });
+    // Show only cards matching the concern
+    const cards = document.querySelectorAll('#catalogGrid .product-card');
+    let visible = 0;
+    cards.forEach(card => {
+      const concerns = (card.dataset.concern || '').split(' ');
+      const show = concerns.includes(concern);
+      card.classList.toggle('hidden', !show);
+      if (show) visible++;
+    });
+    // Update counter
+    const count = document.getElementById('catalogCount');
+    const labels = {
+      acne: 'Acne & Poros',
+      manchas: 'Manchas',
+      linhas: 'Linhas Finas',
+      oleosidade: 'Oleosidade',
+      ressecamento: 'Ressecamento',
+      sinais: 'Sinais de Idade'
+    };
+    if (count) count.textContent = visible + ' produto' + (visible !== 1 ? 's' : '') + ' para ' + (labels[concern] || concern);
+  }
+
+  function filterCatalog(cat) {
+    // Close any open dropdown
+    document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
+    document.querySelectorAll('.dropdown-menu').forEach(m => {
+      m.style.opacity = '0'; m.style.pointerEvents = 'none';
+    });
+    // Apply filter
+    const btns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('#catalogGrid .product-card');
+    btns.forEach(b => {
+      b.classList.toggle('active', b.dataset.filter === cat);
+    });
+    cards.forEach(card => {
+      card.classList.toggle('hidden', cat !== 'all' && card.dataset.cat !== cat);
+    });
+    const count = document.getElementById('catalogCount');
+    if (count) {
+      const visible = document.querySelectorAll('#catalogGrid .product-card:not(.hidden)').length;
+      count.textContent = visible + ' produto' + (visible !== 1 ? 's' : '') + ' encontrado' + (visible !== 1 ? 's' : '');
+    }
+  }
+
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const catalogCards = document.querySelectorAll('#catalogGrid .product-card');
+  const catalogCount = document.getElementById('catalogCount');
+
+  function updateCount() {
+    const visible = document.querySelectorAll('#catalogGrid .product-card:not(.hidden)').length;
+    if (catalogCount) catalogCount.textContent = visible + ' produto' + (visible !== 1 ? 's' : '') + ' encontrado' + (visible !== 1 ? 's' : '');
+  }
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      catalogCards.forEach(card => {
+        if (filter === 'all' || card.dataset.cat === filter) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+      updateCount();
+    });
+  });
+  updateCount();
+
+  // Quiz cards selection
+  document.querySelectorAll('.quiz-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.quiz-card').forEach(c => c.style.borderColor = '');
+      card.style.borderColor = 'var(--gold)';
+      card.style.background = 'rgba(201,169,110,0.15)';
+    });
+  });
+
+  // ── DROPDOWN MENUS (JS-driven, position:fixed to escape stacking context) ──
+  const dropdownTriggers = document.querySelectorAll('.nav-dropdown-trigger');
+  let activeDropdown = null;
+
+  dropdownTriggers.forEach(trigger => {
+    const parent = trigger.closest('.nav-dropdown');
+    const idx = parent.dataset.dropdown;
+    const menu = document.getElementById('dropdown-' + idx);
+
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      const isOpen = parent.classList.contains('open');
+
+      // Close all
+      document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
+      document.querySelectorAll('.dropdown-menu').forEach(m => {
+        m.style.opacity = '0';
+        m.style.pointerEvents = 'none';
+      });
+
+      if (!isOpen) {
+        const rect = trigger.getBoundingClientRect();
+        parent.classList.add('open');
+        menu.style.top = (rect.bottom + 8) + 'px';
+        menu.style.left = (rect.left + rect.width / 2) + 'px';
+        menu.style.transform = 'translateX(-50%)';
+        menu.style.opacity = '1';
+        menu.style.pointerEvents = 'all';
+        activeDropdown = parent;
+      } else {
+        activeDropdown = null;
+      }
+    });
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav-dropdown')) {
+      document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
+      document.querySelectorAll('.dropdown-menu').forEach(m => {
+        m.style.opacity = '0';
+        m.style.pointerEvents = 'none';
+      });
+      activeDropdown = null;
+    }
+  });
+
+  // ── MOBILE MENU TOGGLE ──
+  const menuToggle = document.querySelector('.menu-toggle');
+  const mainNav = document.querySelector('nav');
+  if (menuToggle && mainNav) {
+    menuToggle.addEventListener('click', () => {
+      const isOpen = mainNav.style.display === 'flex';
+      mainNav.style.display = isOpen ? 'none' : 'flex';
+      mainNav.style.flexDirection = 'column';
+      mainNav.style.position = 'fixed';
+      mainNav.style.top = '72px';
+      mainNav.style.left = '0';
+      mainNav.style.right = '0';
+      mainNav.style.background = 'var(--white)';
+      mainNav.style.padding = '20px 40px';
+      mainNav.style.borderBottom = '1px solid var(--gold-light)';
+      mainNav.style.zIndex = '99998';
+      mainNav.style.boxShadow = '0 8px 40px rgba(0,0,0,0.1)';
+    });
+  }
+</script>
+
+</body>
+</html>
